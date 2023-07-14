@@ -1,0 +1,6 @@
+prefer-workspace-packages: true
+packages:
+  # 每个项目
+  - 'projects/*'
+  # 公用包
+  - 'packages/*'
