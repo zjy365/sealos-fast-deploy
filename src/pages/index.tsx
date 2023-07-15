@@ -20,9 +20,9 @@ function Index() {
   const router = useRouter();
   const [searchValue, setSearchValue] = useState('');
   const [searchResults, setSearchResults] = useState([]);
-  // const { data: FastDeployTemplates } = useQuery(['cloneTemplte'], () => GET('/api/cloneRepo'));
-  let FastDeployTemplates: any = [];
-  console.log(FastDeployTemplates);
+  const { data: FastDeployTemplates } = useQuery(['cloneTemplte'], () => GET('/api/listTemplate'));
+  // let FastDeployTemplates: any = [];
+  // console.log(FastDeployTemplates);
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
@@ -68,7 +68,7 @@ function Index() {
   }, []);
 
   return (
-    <Box flexDirection={'column'} height={'100%'} backgroundColor={'#edeff0'}>
+    <Box flexDirection={'column'} height={'100%'} overflow={'auto'} backgroundColor={'#edeff0'}>
       <Flex justifyContent={'center'} flexDirection={'column'} alignItems={'center'} pt={'24px'}>
         <Text color={'24282C'} fontSize={'48px'} fontWeight={500}>
           模板商店

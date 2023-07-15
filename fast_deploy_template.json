@@ -1,0 +1,316 @@
+[
+  {
+    "apiVersion": "template.app.sealos.io/v1beta1",
+    "kind": "Template",
+    "metadata": {
+      "name": "Appsmith"
+    },
+    "spec": {
+      "title": "Appsmith",
+      "url": "https://www.appsmith.com/",
+      "github": "https://github.com/appsmithorg/appsmith",
+      "author": "sealos",
+      "description": "Appsmith is an open-source platform to build, deploy, and maintain internal apps. You can build anything from simple CRUD apps, admin panels, dashboards to custom business apps and complicated multi-step workflows.",
+      "readme": "https://raw.githubusercontent.com/appsmithorg/appsmith/release/README.md",
+      "icon": "https://avatars.githubusercontent.com/u/67620218?s=48&v=4",
+      "template_type": "inline",
+      "defaults": {
+        "app_host": {
+          "type": "string",
+          "value": "${{ random(8) }}"
+        },
+        "app_name": {
+          "type": "string",
+          "value": "appsmith-${{ random(8) }}"
+        }
+      },
+      "inputs": {
+        "volume_size": {
+          "description": "save data size (Gi)",
+          "type": "string",
+          "default": "1",
+          "required": false
+        }
+      }
+    }
+  },
+  {
+    "apiVersion": "template.app.sealos.io/v1beta1",
+    "kind": "Template",
+    "metadata": {
+      "name": "FastGpt"
+    },
+    "spec": {
+      "title": "FastGpt",
+      "url": "https://fastgpt.run/",
+      "github": "https://github.com/labring/FastGPT",
+      "author": "sealos",
+      "description": "Fast GPT allows you to use your own openai API KEY to quickly call the openai interface, currently integrating Gpt35, Gpt4 and embedding. You can build your own knowledge base.",
+      "readme": "https://github.com/labring/FastGPT/blob/main/README.md",
+      "icon": "https://avatars.githubusercontent.com/u/50446880?s=48&v=4",
+      "template_type": "inline",
+      "defaults": {
+        "app_name": {
+          "type": "string",
+          "value": "fastgpt-${{ random(8) }}"
+        },
+        "app_host": {
+          "type": "string",
+          "value": "${{ random(8) }}"
+        },
+        "fastgpt_admin_host": {
+          "type": "string",
+          "value": "${{ random(8) }}"
+        },
+        "fastgpt_keys_host": {
+          "type": "string",
+          "value": "${{ random(8) }}"
+        }
+      },
+      "inputs": {
+        "mail": {
+          "description": "QQ email address",
+          "type": "string",
+          "default": "",
+          "required": true
+        },
+        "mail_code": {
+          "description": "QQ mail_code",
+          "type": "string",
+          "default": "",
+          "required": true
+        }
+      }
+    }
+  },
+  {
+    "apiVersion": "template.app.sealos.io/v1beta1",
+    "kind": "Template",
+    "metadata": {
+      "name": "Halo"
+    },
+    "spec": {
+      "title": "Halo",
+      "url": "https://halo.run/",
+      "github": "https://github.com/halo-dev/halo",
+      "author": "sealos",
+      "description": "Powerful and easy-to-use open source website building tool",
+      "readme": "https://raw.githubusercontent.com/halo-dev/halo/main/README.md",
+      "icon": "https://avatars.githubusercontent.com/u/48195280?s=48&v=4",
+      "template_type": "inline",
+      "defaults": {
+        "app_host": {
+          "type": "string",
+          "value": "${{ random(8) }}"
+        },
+        "app_name": {
+          "type": "string",
+          "value": "halo-${{ random(8) }}"
+        }
+      },
+      "inputs": {
+        "volume_size": {
+          "description": "save data size (Gi)",
+          "type": "string",
+          "default": "1",
+          "required": false
+        },
+        "admin_username": {
+          "description": "Halo Super Admin Username",
+          "type": "string",
+          "default": "admin",
+          "required": false
+        },
+        "admin_password": {
+          "description": "Halo Super Admin Password",
+          "type": "string",
+          "default": "admin",
+          "required": false
+        }
+      }
+    }
+  },
+  {
+    "apiVersion": "template.app.sealos.io/v1beta1",
+    "kind": "Template",
+    "metadata": {
+      "name": "illa-builder"
+    },
+    "spec": {
+      "title": "illa-builder",
+      "url": "https://www.illacloud.com/zh-CN",
+      "github": "https://github.com/illacloud/illa-builder",
+      "author": "sealos",
+      "description": "ILLA is a robust open source low-code platform for developers to build internal tools. By using ILLAs library of Components and Actions, developers can save massive amounts of time on building tools.",
+      "readme": "https://raw.githubusercontent.com/illacloud/illa-builder/main/README.md",
+      "icon": "https://avatars.githubusercontent.com/u/93245159?s=48&v=4",
+      "template_type": "inline",
+      "defaults": {
+        "app_host": {
+          "type": "string",
+          "value": "${{ random(8) }}"
+        },
+        "app_name": {
+          "type": "string",
+          "value": "illabuilder-${{ random(8) }}"
+        }
+      },
+      "inputs": {
+        "volume_size": {
+          "description": "save data size (Gi)",
+          "type": "string",
+          "default": "1",
+          "required": false
+        }
+      }
+    }
+  },
+  {
+    "apiVersion": "template.app.sealos.io/v1beta1",
+    "kind": "Template",
+    "metadata": {
+      "name": "PagePlug"
+    },
+    "spec": {
+      "title": "PagePlug",
+      "url": "https://lowcode.methodot.com/",
+      "github": "https://github.com/cloudtogo/pageplug",
+      "author": "sealos",
+      "description": "PagePlug is a Chinese project of Appsmith. It is an open source, declarative, visual frontend low-code framework that can be used to build web applications and WeChat mini programs.",
+      "readme": "https://raw.githubusercontent.com/cloudtogo/pageplug/open-v1.8/README.md",
+      "icon": "https://avatars.githubusercontent.com/u/23050952?s=48&v=4",
+      "template_type": "inline",
+      "defaults": {
+        "app_host": {
+          "type": "string",
+          "value": "${{ random(8) }}"
+        },
+        "app_name": {
+          "type": "string",
+          "value": "pageplug-${{ random(8) }}"
+        }
+      },
+      "inputs": {
+        "volume_size": {
+          "description": "save data size (Gi)",
+          "type": "string",
+          "default": "1",
+          "required": false
+        }
+      }
+    }
+  },
+  {
+    "apiVersion": "template.app.sealos.io/v1beta1",
+    "kind": "Template",
+    "metadata": {
+      "name": "Tailchat"
+    },
+    "spec": {
+      "title": "Tailchat",
+      "url": "https://tailchat.msgbyte.com/",
+      "github": "https://github.com/msgbyte/tailchat",
+      "author": "sealos",
+      "description": "The next-generation noIM Application in your own workspace",
+      "readme": "https://raw.githubusercontent.com/msgbyte/tailchat/master/README.md",
+      "icon": "https://avatars.githubusercontent.com/u/86033898?s=48&v=4",
+      "template_type": "inline",
+      "defaults": {
+        "app_host": {
+          "type": "string",
+          "value": "${{ random(8) }}"
+        },
+        "minio_host": {
+          "type": "string",
+          "value": "${{ random(8) }}"
+        },
+        "redis_host": {
+          "type": "string",
+          "value": "${{ random(8) }}"
+        },
+        "app_name": {
+          "type": "string",
+          "value": "tailchat-${{ random(8) }}"
+        }
+      },
+      "inputs": {
+        "volume_size": {
+          "description": "save data size (Gi)",
+          "type": "string",
+          "default": "1",
+          "required": false
+        }
+      }
+    }
+  },
+  {
+    "apiVersion": "template.app.sealos.io/v1beta1",
+    "kind": "Template",
+    "metadata": {
+      "name": "UptimeKuma"
+    },
+    "spec": {
+      "title": "UptimeKuma",
+      "url": "https://uptime.kuma.pet/",
+      "github": "https://github.com/louislam/uptime-kuma",
+      "author": "sealos",
+      "description": "Uptime Kuma is an easy-to-use self-hosted monitoring tool.",
+      "readme": "https://raw.githubusercontent.com/louislam/uptime-kuma/master/README.md",
+      "icon": "https://avatars.githubusercontent.com/u/1336778?s=48&v=4",
+      "template_type": "inline",
+      "defaults": {
+        "app_host": {
+          "type": "string",
+          "value": "${{ random(8) }}"
+        },
+        "app_name": {
+          "type": "string",
+          "value": "uptimekuma-${{ random(8) }}"
+        }
+      },
+      "inputs": {
+        "volume_size": {
+          "description": "save data size (Gi)",
+          "type": "string",
+          "default": "1",
+          "required": false
+        }
+      }
+    }
+  },
+  {
+    "apiVersion": "template.app.sealos.io/v1beta1",
+    "kind": "Template",
+    "metadata": {
+      "name": "WordPress"
+    },
+    "spec": {
+      "title": "WordPress",
+      "url": "https://wordpress.org",
+      "github": "https://github.com/WordPress/WordPress",
+      "author": "sealos",
+      "description": "WordPress is a powerful, user-friendly and open source content management system (CMS) that can be used to publish websites, news, blogs and other content on the Internet.",
+      "readme": "https://raw.githubusercontent.com/WordPress/WordPress/master/readme.html",
+      "icon": "https://avatars.githubusercontent.com/u/276006?s=48&v=4",
+      "template_type": "inline",
+      "defaults": {
+        "app_host": {
+          "type": "string",
+          "value": "${{ random(8) }}"
+        },
+        "app_name": {
+          "type": "string",
+          "value": "wordpress-${{ random(8) }}"
+        }
+      },
+      "inputs": {
+        "volume_size": {
+          "description": "save data size (Gi)",
+          "type": "string",
+          "default": "1",
+          "required": false
+        }
+      }
+    }
+  }
+]
