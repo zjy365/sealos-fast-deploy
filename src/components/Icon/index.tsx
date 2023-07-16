@@ -31,7 +31,8 @@ const map = {
   analyze: require('./icons/analyze.svg').default,
   terminal: require('./icons/terminal.svg').default,
   log: require('./icons/log.svg').default,
-  jump: require('./icons/jump.svg').default
+  jump: require('./icons/jump.svg').default,
+  markdown: require('./icons/markdown.svg').default
 };
 
 const MyIcon = ({

@@ -1,7 +1,7 @@
 
 SERVICE_NAME=zhujingyang/sealos-fast-deploy
 # Image URL to use all building/pushing image targets
-IMG ?= $(SERVICE_NAME):1.0.3
+IMG ?= $(SERVICE_NAME):test
 
 .PHONY: all
 all: docker-build-and-push
@@ -35,7 +35,7 @@ run: ## Run a dev service from host.
 
 .PHONY: docker-build
 docker-build: ## Build docker image with the desktop-frontend.
-	sudo docker build -t $(IMG) .
+	sudo docker build --platform=linux/amd64 -t $(IMG) .
 
 ##@ Deployment
 

@@ -53,13 +53,12 @@ const Form = ({
   const boxStyles = {
     border: theme.borders.base,
     borderRadius: 'sm',
-    mb: 4,
     bg: 'white'
   };
 
   const headerStyles = {
     py: 4,
-    pl: '46px',
+    pl: '42px',
     fontSize: '2xl',
     color: 'myGray.900',
     fontWeight: 'bold',
@@ -69,65 +68,33 @@ const Form = ({
   };
 
   return (
-    <>
-      <Grid
-        height={'100%'}
-        templateColumns={'220px 1fr'}
-        gridGap={5}
-        alignItems={'start'}
-        pl={`${pxVal}px`}>
-        <Box>
-          <Tabs
-            list={[
-              { id: 'form', label: 'Config Form' },
-              { id: 'yaml', label: 'YAML File' }
-            ]}
-            activeId={'form'}
-            onChange={(id) => {
-              router.push({
-                pathname: '/deploy',
-                query: { ...router.query, type: id }
-              });
-            }}
-          />
-        </Box>
-
-        <Box
-          id={'form-container'}
-          pr={`${pxVal}px`}
-          height={'100%'}
-          position={'relative'}
-          overflowY={'scroll'}>
-          {/* base info */}
-          <Box id={'baseInfo'} {...boxStyles}>
-            <Box {...headerStyles}>
-              <MyIcon name={'formInfo'} mr={5} w={'20px'} color={'myGray.500'} />
-              {templateName ? `${templateName} config` : 'Config'}
-            </Box>
-            <Box px={'42px'} py={'24px'}>
-              {formSource?.inputs?.map((item: any) => {
-                return (
-                  <FormControl key={item?.key} mb={7} isInvalid={!!errors.appName} w={'500px'}>
-                    <Flex alignItems={'center'}>
-                      <Label w={80}>{item.label}</Label>
-                      <Input
-                        defaultValue={item?.default}
-                        disabled={isEdit}
-                        autoFocus={true}
-                        placeholder={item?.description}
-                        {...register(item?.key, {
-                          required: item?.required
-                        })}
-                      />
-                    </Flex>
-                  </FormControl>
-                );
-              })}
-            </Box>
-          </Box>
-        </Box>
-      </Grid>
-    </>
+    <Box flexGrow={1} id={'baseInfo'} {...boxStyles}>
+      <Box {...headerStyles}>
+        <MyIcon name={'formInfo'} mr={5} w={'24px'} color={'myGray.500'} />
+        基础配置
+      </Box>
+      <Box px={'42px'} py={'24px'}>
+        {formSource?.inputs?.map((item: any) => {
+          return (
+            <FormControl key={item?.key} mb={7} isInvalid={!!errors.appName} w={'500px'}>
+              <Flex alignItems={'center'}>
+                <Label w={80}>{item.label}</Label>
+                <Input
+                  ml={'20px'}
+                  defaultValue={item?.default}
+                  disabled={isEdit}
+                  autoFocus={true}
+                  placeholder={item?.description}
+                  {...register(item?.key, {
+                    required: item?.required
+                  })}
+                />
+              </Flex>
+            </FormControl>
+          );
+        })}
+      </Box>
+    </Box>
   );
 };
 

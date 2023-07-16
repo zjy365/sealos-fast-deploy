@@ -21,8 +21,6 @@ function Index() {
   const [searchValue, setSearchValue] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const { data: FastDeployTemplates } = useQuery(['cloneTemplte'], () => GET('/api/listTemplate'));
-  // let FastDeployTemplates: any = [];
-  // console.log(FastDeployTemplates);
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
@@ -105,69 +103,70 @@ function Index() {
           w={'100%'}
           gridTemplateColumns="repeat(auto-fit, minmax(328px, 328px))"
           gridGap={'24px'}>
-          {filterData?.map((item: TemplateType) => {
-            return (
-              <Flex
-                key={item.spec.title}
-                flexDirection={'column'}
-                w={'328px'}
-                minH={'214px'}
-                p={'24px'}
-                borderRadius={'6px'}
-                backgroundColor={'#fff'}
-                border={'1px solid #DEE0E2'}>
-                <Box
-                  p={'6px'}
-                  w={'48px'}
-                  h={'48px'}
-                  borderRadius={'4px'}
+          {filterData &&
+            filterData?.map((item: TemplateType) => {
+              return (
+                <Flex
+                  key={item.spec.title}
+                  flexDirection={'column'}
+                  w={'328px'}
+                  minH={'214px'}
+                  p={'24px'}
+                  borderRadius={'6px'}
                   backgroundColor={'#fff'}
-                  border={' 1px solid #DEE0E2'}>
-                  <Image src={item?.spec?.icon} alt="" width={'36px'} height={'36px'} />
-                </Box>
-                <Flex mt={'12px'} alignItems={'center'} justifyContent="space-between">
-                  <Text fontSize={'24px'} fontWeight={600} color={'#24282C'}>
-                    {item?.spec?.title}
-                  </Text>
-                  <Flex
-                    cursor={'pointer'}
-                    onClick={() => goDeploy(item?.spec?.title)}
-                    justifyContent={'center'}
-                    alignItems={'center'}
-                    w={'60px'}
-                    h={'28px'}
+                  border={'1px solid #DEE0E2'}>
+                  <Box
+                    p={'6px'}
+                    w={'48px'}
+                    h={'48px'}
                     borderRadius={'4px'}
-                    border={'1px solid #DEE0E2'}
-                    backgroundColor={'#F4F6F8'}>
-                    Deploy
+                    backgroundColor={'#fff'}
+                    border={' 1px solid #DEE0E2'}>
+                    <Image src={item?.spec?.icon} alt="" width={'36px'} height={'36px'} />
+                  </Box>
+                  <Flex mt={'12px'} alignItems={'center'} justifyContent="space-between">
+                    <Text fontSize={'24px'} fontWeight={600} color={'#24282C'}>
+                      {item?.spec?.title}
+                    </Text>
+                    <Flex
+                      cursor={'pointer'}
+                      onClick={() => goDeploy(item?.spec?.title)}
+                      justifyContent={'center'}
+                      alignItems={'center'}
+                      w={'60px'}
+                      h={'28px'}
+                      borderRadius={'4px'}
+                      border={'1px solid #DEE0E2'}
+                      backgroundColor={'#F4F6F8'}>
+                      Deploy
+                    </Flex>
+                  </Flex>
+
+                  <Text
+                    css={`
+                      display: -webkit-box;
+                      -webkit-line-clamp: 2;
+                      -webkit-box-orient: vertical;
+                      overflow: hidden;
+                      text-overflow: ellipsis;
+                    `}
+                    mt={'8px'}
+                    fontSize={'12px'}
+                    color={'5A646E'}
+                    fontWeight={400}>
+                    {item?.spec?.description}
+                  </Text>
+                  <Flex mt={'12px'} justifyContent={'space-between'} alignItems={'center'}>
+                    <Text fontSize={'12px'} color={'5A646E'} fontWeight={400}>
+                      By {item?.spec?.author}
+                    </Text>
+                    <Box>
+                      <MyIcon name="jump"></MyIcon>
+                    </Box>
                   </Flex>
                 </Flex>
-
-                <Text
-                  css={`
-                    display: -webkit-box;
-                    -webkit-line-clamp: 2;
-                    -webkit-box-orient: vertical;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                  `}
-                  mt={'8px'}
-                  fontSize={'12px'}
-                  color={'5A646E'}
-                  fontWeight={400}>
-                  {item?.spec?.description}
-                </Text>
-                <Flex mt={'12px'} justifyContent={'space-between'} alignItems={'center'}>
-                  <Text fontSize={'12px'} color={'5A646E'} fontWeight={400}>
-                    By {item?.spec?.author}
-                  </Text>
-                  <Box>
-                    <MyIcon name="jump"></MyIcon>
-                  </Box>
-                </Flex>
-              </Flex>
-            );
-          })}
+              );
+            })}
         </Grid>
       </Flex>
     </Box>

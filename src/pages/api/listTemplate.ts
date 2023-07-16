@@ -19,7 +19,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       const objects = JSON.parse(jsonData);
       return jsonRes(res, { data: objects, code: 200 });
     } else {
-      return jsonRes(res, { data: 'no template', code: 200 });
+      return jsonRes(res, { data: [], code: 200 });
     }
   } catch (error) {
     console.log(error);
