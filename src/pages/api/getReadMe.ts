@@ -8,9 +8,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
   try {
     const { url } = req.body;
     console.log(url);
-
-    // const result = await (await fetch(url)).text();
-
     return jsonRes(res, { data: 'sad', code: 200 });
   } catch (error) {
     console.log(error);

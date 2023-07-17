@@ -228,6 +228,7 @@ const EditApp = ({ appName, tabType }: { appName?: string; tabType: string }) =>
           />
           <Flex w={'1000px'} m={'32px auto'} flexDirection="column">
             <Form formHook={formHook} pxVal={pxVal} formSource={templateSource?.source} />
+            {/* <Yaml yamlList={yamlList} pxVal={pxVal}></Yaml> */}
             <ReadMe templateDetail={templateDetail} />
           </Flex>
         </Flex>

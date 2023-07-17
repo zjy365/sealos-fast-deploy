@@ -5,6 +5,6 @@ npm-debug.log
 README.md
 .next
 .git
-
+!FastDeployTemplates/.git
 .yalc/
 yalc.lock

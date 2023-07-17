@@ -17,8 +17,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     const handlePath = process.env.TEMPLATE_REPO_PATH || 'template';
 
     gitPullOrClone(repoUrl, targetPath, (err: any) => {
-      if (err) throw err;
-      console.log('SUCCESS GIT');
+      console.log(err, 'clone error');
     });
 
     const readFileList = (targetPath: string, fileList: unknown[] = []) => {
