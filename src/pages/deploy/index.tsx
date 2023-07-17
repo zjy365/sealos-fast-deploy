@@ -198,7 +198,12 @@ const EditApp = ({ appName, tabType }: { appName?: string; tabType: string }) =>
           alignItems={'center'}
           backgroundColor={'rgba(255, 255, 255, 0.10)'}
           backdropBlur={'25px'}>
-          <Breadcrumb textDecoration={'none'} ml={'46px'} color={'#7B838B'}>
+          <Breadcrumb
+            fontWeight={500}
+            fontSize={16}
+            textDecoration={'none'}
+            ml={'46px'}
+            color={'#7B838B'}>
             <BreadcrumbItem textDecoration={'none'}>
               <BreadcrumbLink _hover={{ color: '#219BF4', textDecoration: 'none' }} href="/">
                 模板列表

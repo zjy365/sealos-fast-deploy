@@ -50,22 +50,21 @@ const App = ({ Component, pageProps, domain }: AppProps & { domain: string }) =>
   useEffect(() => {
     NProgress.start();
     const response = createSealosApp();
-    // (async () => {
-    //   try {
-    //     const res = await sealosApp.getSession();
-    //     localStorage.setItem('session', JSON.stringify(res));
-    //     console.log('app init success');
-    //   } catch (err) {
-    //     console.log('App is not running in desktop');
-    //     if (!process.env.NEXT_PUBLIC_MOCK_USER) {
-    //       localStorage.removeItem('session');
-
-    //       openConfirm(() => {
-    //         window.open(`https://${domain}`, '_self');
-    //       })();
-    //     }
-    //   }
-    // })();
+    (async () => {
+      try {
+        const res = await sealosApp.getSession();
+        localStorage.setItem('session', JSON.stringify(res));
+        console.log('app init success');
+      } catch (err) {
+        console.log('App is not running in desktop');
+        if (!process.env.NEXT_PUBLIC_MOCK_USER) {
+          localStorage.removeItem('session');
+          openConfirm(() => {
+            window.open(`https://${domain}`, '_self');
+          })();
+        }
+      }
+    })();
     NProgress.done();
 
     return response;

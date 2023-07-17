@@ -54,7 +54,6 @@ const PriceBox = ({
           <Box>{item.value}</Box>
         </Flex>
       ))}
-      <Box></Box>
     </Box>
   );
 };
