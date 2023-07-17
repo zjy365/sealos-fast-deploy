@@ -32,6 +32,8 @@ const EditApp = ({ appName, tabType }: { appName?: string; tabType: string }) =>
   const { toast } = useToast();
   const router = useRouter();
   const { templateName } = router.query as QueryType;
+  console.log(templateName, 'template name ---');
+
   const { Loading, setIsLoading } = useLoading();
   const [forceUpdate, setForceUpdate] = useState(false);
   const { title, applyBtnText, applyMessage, applySuccess, applyError } = editModeMap(!!appName);

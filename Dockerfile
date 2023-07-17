@@ -41,6 +41,11 @@ RUN npm install -g pnpm && pnpm run build
 FROM node:current-alpine AS runner
 WORKDIR /app
 
+USER root
+
+RUN apk update && \
+    apk add --no-cache git
+
 ENV NODE_ENV production
 # Uncomment the following line in case you want to disable telemetry during runtime.
 ENV NEXT_TELEMETRY_DISABLED 1

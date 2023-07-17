@@ -24,8 +24,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     };
 
     const originalPath = process.cwd();
-    const handlePath = TemplateEnvs.TEMPLATE_REPO_PATH;
-    const targetPath = path.resolve(originalPath, 'FastDeployTemplates', handlePath);
+    const targetPath = path.resolve(
+      originalPath,
+      'FastDeployTemplates',
+      TemplateEnvs.TEMPLATE_REPO_PATH
+    );
 
     const yamlString = fs.readFileSync(`${targetPath}/${templateName}.yaml`, 'utf-8');
 
