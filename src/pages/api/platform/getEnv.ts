@@ -8,7 +8,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       data: {
         SEALOS_CLOUD_DOMAIN: process.env.SEALOS_CLOUD_DOMAIN || 'cloud.sealos.io',
         SEALOS_Cert_Secret_Name: process.env.SEALOS_Cert_Secret_Name || 'wildcard-cert',
-        TEMPLATE_REPO_PATH: process.env.TEMPLATE_REPO_PATH || 'dev-template'
+        TEMPLATE_REPO_PATH: process.env.TEMPLATE_REPO_PATH || 'template'
       }
     });
   } catch (err: any) {

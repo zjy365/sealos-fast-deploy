@@ -104,6 +104,10 @@ const EditApp = ({ appName, tabType }: { appName?: string; tabType: string }) =>
     setIsLoading(true);
     try {
       const yamls = JSYAML.loadAll(correctYaml).map((item) => JSYAML.dump(item));
+      // yamls.forEach((item) => {
+      //   const str = JSYAML.dump(item);
+      //   console.log(str);
+      // }),
       await postDeployApp(yamls);
       toast({
         title: t(applySuccess),

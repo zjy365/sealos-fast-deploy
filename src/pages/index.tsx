@@ -14,13 +14,14 @@ import {
 } from '@chakra-ui/react';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
-import { ChangeEvent, useEffect, useMemo, useState } from 'react';
+import { ChangeEvent, MouseEvent, useEffect, useMemo, useState } from 'react';
 
 function Index() {
   const router = useRouter();
   const [searchValue, setSearchValue] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const { data: FastDeployTemplates } = useQuery(['cloneTemplte'], () => GET('/api/listTemplate'));
+  useQuery(['updateRepo'], () => updateRepo());
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
@@ -50,6 +51,11 @@ function Index() {
     });
   };
 
+  const goGithub = (e: MouseEvent<HTMLDivElement>, url: string) => {
+    e.stopPropagation();
+    window.open(url, '_blank');
+  };
+
   useEffect(() => {
     if (router.query?.templateName) {
       router.push({
@@ -59,11 +65,7 @@ function Index() {
         }
       });
     }
-    (async () => {
-      const result = await updateRepo();
-      console.log(result);
-    })();
-  }, []);
+  }, [router]);
 
   return (
     <Box flexDirection={'column'} height={'100%'} overflow={'auto'} backgroundColor={'#edeff0'}>
@@ -100,6 +102,7 @@ function Index() {
       </Flex>
       <Flex p={'32px'} minW={'750px'} maxW={'1448px'} m={'0 auto'} justifyContent={'center'}>
         <Grid
+          justifyContent={'center'}
           w={'100%'}
           gridTemplateColumns="repeat(auto-fit, minmax(328px, 328px))"
           gridGap={'24px'}>
@@ -107,6 +110,11 @@ function Index() {
             filterData?.map((item: TemplateType) => {
               return (
                 <Flex
+                  onClick={() => goDeploy(item?.spec?.title)}
+                  _hover={{
+                    borderColor: '#36ADEF',
+                    boxShadow: '0px 4px 5px 0px rgba(185, 196, 205, 0.25)'
+                  }}
                   key={item.spec.title}
                   flexDirection={'column'}
                   w={'328px'}
@@ -157,10 +165,19 @@ function Index() {
                     {item?.spec?.description}
                   </Text>
                   <Flex mt={'12px'} justifyContent={'space-between'} alignItems={'center'}>
-                    <Text fontSize={'12px'} color={'5A646E'} fontWeight={400}>
-                      By {item?.spec?.author}
-                    </Text>
-                    <Box>
+                    <Flex alignItems={'center'} fontSize={'12px'} color={'5A646E'} fontWeight={400}>
+                      <Text>By</Text>
+                      {/* <Flex
+                        ml={'4px'}
+                        w={'14px'}
+                        h={'14px'}
+                        justifyContent="center"
+                        alignItems={'center'}>
+                        <MyIcon name="sealosGrey"></MyIcon>
+                      </Flex> */}
+                      <Text ml={'4px'}>{item?.spec?.author}</Text>
+                    </Flex>
+                    <Box cursor={'pointer'} onClick={(e) => goGithub(e, item?.spec?.github)}>
                       <MyIcon name="jump"></MyIcon>
                     </Box>
                   </Flex>

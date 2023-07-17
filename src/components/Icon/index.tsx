@@ -32,7 +32,8 @@ const map = {
   terminal: require('./icons/terminal.svg').default,
   log: require('./icons/log.svg').default,
   jump: require('./icons/jump.svg').default,
-  markdown: require('./icons/markdown.svg').default
+  markdown: require('./icons/markdown.svg').default,
+  sealosGrey: require('./icons/sealos-grey.svg').default
 };
 
 const MyIcon = ({

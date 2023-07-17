@@ -7,11 +7,8 @@ import path from 'path';
 import JSYAML from 'js-yaml';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<ApiResp>) {
-  const repoUrl = 'git@github.com:a497625414/DelpoyOnSealosRepo.git';
   const originalPath = process.cwd();
-  const targetPath = path.resolve(originalPath, 'FastDeployTemplates');
   const jsonPath = path.resolve(originalPath, 'fast_deploy_template.json');
-  const handlePath = process.env.TEMPLATE_REPO_PATH || 'dev-template';
 
   try {
     if (fs.existsSync(jsonPath)) {

@@ -1,7 +1,7 @@
 
 SERVICE_NAME=zhujingyang/sealos-fast-deploy
 # Image URL to use all building/pushing image targets
-IMG ?= $(SERVICE_NAME):test
+IMG ?= $(SERVICE_NAME):1.0.0
 
 .PHONY: all
 all: docker-build-and-push

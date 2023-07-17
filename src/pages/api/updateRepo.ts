@@ -4,15 +4,22 @@ import { jsonRes } from '@/services/backend/response';
 import JSYAML from 'js-yaml';
 import path from 'path';
 import fs from 'fs';
+const gitPullOrClone = require('git-pull-or-clone');
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<ApiResp>) {
   try {
-    const repoUrl = 'git@github.com:a497625414/DelpoyOnSealosRepo.git';
+    const repoUrl =
+      process.env.TEMPLATE_REPO_URL || 'git@github.com:a497625414/DelpoyOnSealosRepo.git';
     const repoHttpUrl = 'https://github.com/a497625414/DelpoyOnSealosRepo.git';
     const originalPath = process.cwd();
     const targetPath = path.resolve(originalPath, 'FastDeployTemplates');
     const jsonPath = path.resolve(originalPath, 'fast_deploy_template.json');
-    const handlePath = process.env.TEMPLATE_REPO_PATH || 'dev-template';
+    const handlePath = process.env.TEMPLATE_REPO_PATH || 'template';
+
+    gitPullOrClone(repoUrl, targetPath, (err: any) => {
+      if (err) throw err;
+      console.log('SUCCESS GIT');
+    });
 
     const readFileList = (targetPath: string, fileList: unknown[] = []) => {
       const files = fs.readdirSync(targetPath);
@@ -32,16 +39,20 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
     let jsonObjArr: unknown[] = [];
     fileList.forEach((item: any) => {
-      if (!item) return;
-      const content = fs.readFileSync(item, 'utf-8');
-      const yamlTemplate: any = JSYAML.loadAll(content)[0];
-      jsonObjArr.push(yamlTemplate);
+      try {
+        if (!item) return;
+        const content = fs.readFileSync(item, 'utf-8');
+        const yamlTemplate: any = JSYAML.loadAll(content)[0];
+        jsonObjArr.push(yamlTemplate);
+      } catch (error) {
+        console.log(error, 'yaml parse error');
+      }
     });
 
     const jsonContent = JSON.stringify(jsonObjArr, null, 2);
     fs.writeFileSync(jsonPath, jsonContent, 'utf-8');
 
-    jsonRes(res, { data: 'success clone template', code: 200 });
+    jsonRes(res, { data: 'success update template', code: 200 });
   } catch (err: any) {
     jsonRes(res, {
       code: 500,

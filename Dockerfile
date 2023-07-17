@@ -23,7 +23,6 @@ COPY package.json pnpm-lock.yaml* ./
 RUN \
   [ -f pnpm-lock.yaml ] && pnpm install || \
   (echo "Lockfile not found." && exit 1)
-RUN apk add --no-cache git
 
 # Rebuild the source code only when needed
 FROM node:current-alpine AS builder
@@ -63,6 +62,9 @@ COPY --from=builder /app/package.json ./package.json
 # https://nextjs.org/docs/advanced-features/output-file-tracing
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
+RUN chown -R nextjs:nodejs /app \
+ && chmod -R 755 /app
 
 USER nextjs
 

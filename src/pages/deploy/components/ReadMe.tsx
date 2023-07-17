@@ -1,30 +1,36 @@
 import MyIcon from '@/components/Icon';
-import MarkDown from '@/components/markdown';
-import { GET } from '@/services/request';
+import { GET, POST } from '@/services/request';
 import { TemplateType } from '@/types/app';
 import { Box, useTheme } from '@chakra-ui/react';
 import { useQuery } from '@tanstack/react-query';
 import { Octokit } from 'octokit';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import 'github-markdown-css/github-markdown-light.css';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 
 const ReadMe = ({ templateDetail }: { templateDetail: TemplateType }) => {
-  const octokit = new Octokit({
-    auth: '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'
-  });
-  const { data } = useQuery(['getReadMe'], () =>
-    octokit.request('GET /repos/{owner}/{repo}/readme', {
-      owner: 'appsmithorg',
-      repo: 'appsmith'
-    })
-  );
+  const [templateReadMe, setTemplateReadMe] = useState('');
+  // const { data } = useQuery(
+  //   ['getReadMe'],
+  //   () => POST('/api/getReadMe', { url: templateDetail?.spec?.readme }),
+  //   {
+  //     enabled: !!templateDetail?.spec?.readme
+  //   }
+  // );
 
-  let readme = '';
-  if (data?.data?.content) {
-    readme = Buffer.from(data?.data?.content || '', 'base64').toString('utf-8');
-  }
+  useEffect(() => {
+    if (templateDetail?.spec?.readme) {
+      (async () => {
+        try {
+          const res = await (await fetch(templateDetail?.spec?.readme)).text();
+          setTemplateReadMe(res);
+        } catch (error) {
+          console.log(error);
+        }
+      })();
+    }
+  }, [templateDetail?.spec?.readme]);
 
   return (
     <Box flexGrow={1} border={'1px solid #DEE0E2'} mt={'16px'}>
@@ -38,7 +44,7 @@ const ReadMe = ({ templateDetail }: { templateDetail: TemplateType }) => {
         README.md
       </Box>
       <Box p={'24px'} className="markdown-body">
-        <ReactMarkdown rehypePlugins={[rehypeRaw]}>{readme}</ReactMarkdown>
+        <ReactMarkdown rehypePlugins={[rehypeRaw]}>{templateReadMe}</ReactMarkdown>
       </Box>
     </Box>
   );

@@ -5,6 +5,7 @@ export type TemplateType = {
     name: string;
   };
   spec: {
+    github: string;
     author: string;
     title: string;
     url: string;

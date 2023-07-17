@@ -2,17 +2,16 @@ import { authSession } from '@/services/backend/auth';
 import { getK8s } from '@/services/backend/kubernetes';
 import { jsonRes } from '@/services/backend/response';
 import { ApiResp } from '@/services/kubernet';
-import { GET } from '@/services/request';
 import { TemplateType } from '@/types/app';
 import { getTemplateDataSource } from '@/utils/json-yaml';
-import yaml from 'js-yaml';
 import fs from 'fs';
+import yaml from 'js-yaml';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import path from 'path';
-import { getEnvs } from '@/api/platform';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<ApiResp>) {
   try {
+    const { templateName } = req.body;
     const { namespace } = await getK8s({
       kubeconfig: await authSession(req.headers)
     });
@@ -20,11 +19,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     const TemplateEnvs = {
       SEALOS_CLOUD_DOMAIN: process.env.SEALOS_CLOUD_DOMAIN || 'cloud.sealos.io',
       SEALOS_Cert_Secret_Name: process.env.SEALOS_Cert_Secret_Name || 'wildcard-cert',
-      TEMPLATE_REPO_PATH: process.env.TEMPLATE_REPO_PATH || 'dev-template',
+      TEMPLATE_REPO_PATH: process.env.TEMPLATE_REPO_PATH || 'template',
       SEALOS_NAMESPACE: namespace
     };
 
-    const { templateName } = req.body;
     const originalPath = process.cwd();
     const handlePath = TemplateEnvs.TEMPLATE_REPO_PATH;
     const targetPath = path.resolve(originalPath, 'FastDeployTemplates', handlePath);

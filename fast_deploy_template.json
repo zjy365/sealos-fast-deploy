@@ -169,6 +169,33 @@
     "apiVersion": "template.app.sealos.io/v1beta1",
     "kind": "Template",
     "metadata": {
+      "name": "Jupyter Docker Stacks"
+    },
+    "spec": {
+      "title": "Jupyter Docker Stacks",
+      "url": "https://jupyter-docker-stacks.readthedocs.io/en/latest/",
+      "github": "https://github.com/jupyter/docker-stacks",
+      "author": "sealos",
+      "description": "Jupyter Docker Stacks are a set of ready-to-run Docker images containing Jupyter applications and interactive computing tools.",
+      "readme": "https://raw.githubusercontent.com/jupyter/docker-stacks/main/README.md",
+      "icon": "https://avatars.githubusercontent.com/u/7388996?s=48&v=4",
+      "template_type": "inline",
+      "defaults": {
+        "app_host": {
+          "type": "string",
+          "value": "${{ random(8) }}"
+        },
+        "app_name": {
+          "type": "string",
+          "value": "appsmith-${{ random(8) }}"
+        }
+      }
+    }
+  },
+  {
+    "apiVersion": "template.app.sealos.io/v1beta1",
+    "kind": "Template",
+    "metadata": {
       "name": "PagePlug"
     },
     "spec": {
