@@ -5,6 +5,7 @@ import JSYAML from 'js-yaml';
 import path from 'path';
 import fs from 'fs';
 const gitPullOrClone = require('git-pull-or-clone');
+import { simpleGit, CleanOptions } from 'simple-git';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<ApiResp>) {
   try {
@@ -16,9 +17,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     const jsonPath = path.resolve(originalPath, 'fast_deploy_template.json');
     const handlePath = process.env.TEMPLATE_REPO_PATH || 'template';
 
-    gitPullOrClone(repoUrl, targetPath, (err: any) => {
-      console.log(err, 'clone error');
-    });
+    // gitPullOrClone(repoUrl, targetPath, (err: any) => {
+    //   console.log(err, 'clone error');
+    // });
+
+    if (!fs.existsSync(targetPath)) {
+      simpleGit().clone(repoUrl, targetPath).then(console.log);
+      console.log(1111);
+    } else {
+      simpleGit(targetPath).pull('origin', 'main').then(console.log);
+      console.log(22222);
+    }
 
     const readFileList = (targetPath: string, fileList: unknown[] = []) => {
       const files = fs.readdirSync(targetPath);
