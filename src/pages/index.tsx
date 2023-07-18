@@ -133,7 +133,7 @@ function Index() {
                     <Image src={item?.spec?.icon} alt="" width={'36px'} height={'36px'} />
                   </Box>
                   <Flex mt={'12px'} alignItems={'center'} justifyContent="space-between">
-                    <Text fontSize={'24px'} fontWeight={600} color={'#24282C'}>
+                    <Text w={'170px'} fontSize={'24px'} fontWeight={600} color={'#24282C'}>
                       {item?.spec?.title}
                     </Text>
                     <Flex

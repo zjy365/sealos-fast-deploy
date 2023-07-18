@@ -50,6 +50,10 @@ const EditApp = ({ appName, tabType }: { appName?: string; tabType: string }) =>
     content: applyMessage
   });
 
+  const { openConfirm: openConfirm2, ConfirmChild: ConfirmChild2 } = useConfirm({
+    content: '您要跳转到应用详情页吗'
+  });
+
   const pxVal = useMemo(() => {
     const val = Math.floor((screenWidth - 1050) / 2);
     if (val < 20) {
@@ -109,11 +113,14 @@ const EditApp = ({ appName, tabType }: { appName?: string; tabType: string }) =>
       // }),
       const result = await postDeployApp(yamls);
       console.log(result);
-
       toast({
         title: t(applySuccess),
         status: 'success'
       });
+
+      // openConfirm2(() => {
+      //   window.open(`https://cloud.sealos.io`, '_self');
+      // })();
     } catch (error) {
       setErrorMessage(JSON.stringify(error));
     }
@@ -238,6 +245,7 @@ const EditApp = ({ appName, tabType }: { appName?: string; tabType: string }) =>
         </Flex>
       </Flex>
       <ConfirmChild />
+      <ConfirmChild2 />
       <Loading />
       {!!errorMessage && (
         <ErrorModal title={applyError} content={errorMessage} onClose={() => setErrorMessage('')} />
