@@ -1,12 +1,12 @@
 
 SERVICE_NAME=zhujingyang/sealos-fast-deploy
 # Image URL to use all building/pushing image targets
-IMG ?= $(SERVICE_NAME):1.1.1.test
+IMG ?= $(SERVICE_NAME):1.1.1.exechttp
 
 .PHONY: all
 all: docker-build-and-push
 
-##@ General
+##@ Generals
 
 # The help target prints out all targets with their descriptions organized
 # beneath their categories. The categories are represented by '##@' and the

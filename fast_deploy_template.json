@@ -24,14 +24,7 @@
           "value": "appsmith-${{ random(8) }}"
         }
       },
-      "inputs": {
-        "volume_size": {
-          "description": "save data size (Gi)",
-          "type": "string",
-          "default": "1",
-          "required": false
-        }
-      }
+      "inputs": null
     }
   },
   {
@@ -109,12 +102,6 @@
         }
       },
       "inputs": {
-        "volume_size": {
-          "description": "save data size (Gi)",
-          "type": "string",
-          "default": "1",
-          "required": false
-        },
         "admin_username": {
           "description": "Halo Super Admin Username",
           "type": "string",
@@ -155,14 +142,7 @@
           "value": "illabuilder-${{ random(8) }}"
         }
       },
-      "inputs": {
-        "volume_size": {
-          "description": "save data size (Gi)",
-          "type": "string",
-          "default": "1",
-          "required": false
-        }
-      }
+      "inputs": null
     }
   },
   {
@@ -217,14 +197,7 @@
           "value": "pageplug-${{ random(8) }}"
         }
       },
-      "inputs": {
-        "volume_size": {
-          "description": "save data size (Gi)",
-          "type": "string",
-          "default": "1",
-          "required": false
-        }
-      }
+      "inputs": null
     }
   },
   {
@@ -260,14 +233,7 @@
           "value": "tailchat-${{ random(8) }}"
         }
       },
-      "inputs": {
-        "volume_size": {
-          "description": "save data size (Gi)",
-          "type": "string",
-          "default": "1",
-          "required": false
-        }
-      }
+      "inputs": null
     }
   },
   {
@@ -295,14 +261,7 @@
           "value": "uptimekuma-${{ random(8) }}"
         }
       },
-      "inputs": {
-        "volume_size": {
-          "description": "save data size (Gi)",
-          "type": "string",
-          "default": "1",
-          "required": false
-        }
-      }
+      "inputs": null
     }
   },
   {
@@ -330,14 +289,7 @@
           "value": "wordpress-${{ random(8) }}"
         }
       },
-      "inputs": {
-        "volume_size": {
-          "description": "save data size (Gi)",
-          "type": "string",
-          "default": "1",
-          "required": false
-        }
-      }
+      "inputs": null
     }
   }
 ]

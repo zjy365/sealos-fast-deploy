@@ -46,6 +46,10 @@ USER root
 RUN apk update && \
     apk add --no-cache git
 
+RUN apk add --no-cache openssh-client
+# RUN git config --global user.name "jingyang"
+# RUN git config --global user.email "3161362058@qq.com"
+
 ENV NODE_ENV production
 # Uncomment the following line in case you want to disable telemetry during runtime.
 ENV NEXT_TELEMETRY_DISABLED 1

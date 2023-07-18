@@ -4,8 +4,20 @@ import { jsonRes } from '@/services/backend/response';
 import JSYAML from 'js-yaml';
 import path from 'path';
 import fs from 'fs';
-const gitPullOrClone = require('git-pull-or-clone');
-import { simpleGit, CleanOptions } from 'simple-git';
+import { exec } from 'child_process';
+
+const readFileList = (targetPath: string, fileList: unknown[] = [], handlePath: string) => {
+  const files = fs.readdirSync(targetPath);
+  files.forEach((item: any) => {
+    const filePath = path.join(targetPath, item);
+    const stats = fs.statSync(filePath);
+    if (stats.isFile() && path.extname(item) === '.yaml' && item !== 'template.yaml') {
+      fileList.push(filePath);
+    } else if (stats.isDirectory() && item === handlePath) {
+      readFileList(filePath, fileList, handlePath);
+    }
+  });
+};
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<ApiResp>) {
   try {
@@ -17,33 +29,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     const jsonPath = path.resolve(originalPath, 'fast_deploy_template.json');
     const handlePath = process.env.TEMPLATE_REPO_PATH || 'template';
 
-    // gitPullOrClone(repoUrl, targetPath, (err: any) => {
-    //   console.log(err, 'clone error');
-    // });
-
     if (!fs.existsSync(targetPath)) {
-      simpleGit().clone(repoUrl, targetPath).then(console.log);
-      console.log(1111);
+      exec(`git clone ${repoHttpUrl} ${targetPath}`, (error, stdout, stderr) => {
+        console.log(error, stdout);
+      });
     } else {
-      simpleGit(targetPath).pull('origin', 'main').then(console.log);
-      console.log(22222);
+      exec(`cd ${targetPath} && git pull`, (error, stdout, stderr) => {
+        console.log(error, stdout);
+      });
     }
 
-    const readFileList = (targetPath: string, fileList: unknown[] = []) => {
-      const files = fs.readdirSync(targetPath);
-      files.forEach((item: any) => {
-        const filePath = path.join(targetPath, item);
-        const stats = fs.statSync(filePath);
-        if (stats.isFile() && path.extname(item) === '.yaml' && item !== 'template.yaml') {
-          fileList.push(filePath);
-        } else if (stats.isDirectory() && item === handlePath) {
-          readFileList(filePath, fileList);
-        }
-      });
-    };
+    if (!fs.existsSync(targetPath)) {
+      return jsonRes(res, { error: 'template repo err', code: 500 });
+    }
 
     let fileList: unknown[] = [];
-    readFileList(targetPath, fileList);
+    readFileList(targetPath, fileList, handlePath);
 
     let jsonObjArr: unknown[] = [];
     fileList.forEach((item: any) => {
