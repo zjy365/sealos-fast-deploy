@@ -20,9 +20,11 @@ import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { sealosApp } from 'sealos-desktop-sdk/app';
 import Form from './components/Form';
 import Header from './components/Header';
 import ReadMe from './components/ReadMe';
+import Yaml from './components/Yaml';
 
 const ErrorModal = dynamic(() => import('./components/ErrorModal'));
 
@@ -106,21 +108,25 @@ const EditApp = ({ appName, tabType }: { appName?: string; tabType: string }) =>
   const submitSuccess = async () => {
     setIsLoading(true);
     try {
+      const detailName = templateSource?.source?.defaults?.app_name?.value;
       const yamls = JSYAML.loadAll(correctYaml).map((item) => JSYAML.dump(item));
-      // yamls.forEach((item) => {
-      //   const str = JSYAML.dump(item);
-      //   console.log(str);
-      // }),
+
       const result = await postDeployApp(yamls);
       console.log(result);
+
       toast({
         title: t(applySuccess),
         status: 'success'
       });
 
-      // openConfirm2(() => {
-      //   window.open(`https://cloud.sealos.io`, '_self');
-      // })();
+      openConfirm2(() => {
+        sealosApp.runEvents('openDesktopApp', {
+          appKey: 'system-applaunchpad',
+          pathname: '/app/detail',
+          query: { name: detailName },
+          messageData: {}
+        });
+      })();
     } catch (error) {
       setErrorMessage(JSON.stringify(error));
     }

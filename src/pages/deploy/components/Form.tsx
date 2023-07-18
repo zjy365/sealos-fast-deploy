@@ -73,7 +73,7 @@ const Form = ({
         <MyIcon name={'formInfo'} mr={5} w={'24px'} color={'myGray.500'} />
         基础配置
       </Box>
-      {formSource?.tabs?.length > 0 ? (
+      {formSource?.inputs?.length > 0 ? (
         <Box px={'42px'} py={'24px'}>
           {formSource?.inputs?.map((item: any) => {
             return (
@@ -87,7 +87,8 @@ const Form = ({
                     autoFocus={true}
                     placeholder={item?.description}
                     {...register(item?.key, {
-                      required: item?.required
+                      required: item?.required,
+                      setValueAs: (v) => v.toString()
                     })}
                   />
                 </Flex>
