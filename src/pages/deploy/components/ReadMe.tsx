@@ -62,6 +62,7 @@ const ReadMe = ({ templateDetail }: { templateDetail: TemplateType }) => {
       </Box>
       <Box p={'24px'} className={`markdown-body ${styles.customMarkDownBody}`}>
         <ReactMarkdown
+          linkTarget={'_blank'}
           rehypePlugins={[rehypeRaw, [rehypeRewrite, { rewrite: myRewrite }]]}
           remarkPlugins={[remarkGfm, remarkUnwrapImages]}>
           {templateReadMe}

@@ -1,4 +1,5 @@
 import { getTemplate, postDeployApp } from '@/api/app';
+import MyIcon from '@/components/Icon';
 import { editModeMap } from '@/constants/editApp';
 import { useConfirm } from '@/hooks/useConfirm';
 import { useLoading } from '@/hooks/useLoading';
@@ -10,7 +11,7 @@ import type { QueryType, YamlItemType } from '@/types';
 import { TemplateSource, TemplateType } from '@/types/app';
 import { serviceSideProps } from '@/utils/i18n';
 import { generateYamlList, parseTemplateString } from '@/utils/json-yaml';
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, Flex } from '@chakra-ui/react';
+import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Flex } from '@chakra-ui/react';
 import { useQuery } from '@tanstack/react-query';
 import JSYAML from 'js-yaml';
 import { has, isObject, mapValues, reduce } from 'lodash';
@@ -45,7 +46,7 @@ const EditApp = ({ appName, tabType }: { appName?: string; tabType: string }) =>
   const { data: FastDeployTemplates } = useQuery(['cloneTemplte'], () => GET('/api/listTemplate'));
 
   const templateDetail: TemplateType = FastDeployTemplates?.find(
-    (item: any) => item?.spec?.title?.toLowerCase() === templateName?.toLowerCase()
+    (item: TemplateType) => item?.metadata?.name === templateName
   );
 
   const { openConfirm, ConfirmChild } = useConfirm({
@@ -210,11 +211,14 @@ const EditApp = ({ appName, tabType }: { appName?: string; tabType: string }) =>
           alignItems={'center'}
           backgroundColor={'rgba(255, 255, 255)'}
           backdropBlur={'100px'}>
+          <Box cursor={'pointer'} onClick={() => router.push('/')}>
+            <MyIcon ml={'46px'} name="arrowLeft" color={'#24282C'} w={'16px'} h={'16px'}></MyIcon>
+          </Box>
           <Breadcrumb
+            ml={'14px'}
             fontWeight={500}
             fontSize={16}
             textDecoration={'none'}
-            ml={'46px'}
             color={'#7B838B'}>
             <BreadcrumbItem textDecoration={'none'}>
               <BreadcrumbLink _hover={{ color: '#219BF4', textDecoration: 'none' }} href="/">
@@ -223,7 +227,7 @@ const EditApp = ({ appName, tabType }: { appName?: string; tabType: string }) =>
             </BreadcrumbItem>
             <BreadcrumbItem color={'#262A32'} isCurrentPage={router.pathname === 'deploy'}>
               <BreadcrumbLink _hover={{ color: '#219BF4', textDecoration: 'none' }} href="#">
-                {templateDetail?.spec?.title}
+                {templateDetail?.metadata?.name}
               </BreadcrumbLink>
             </BreadcrumbItem>
           </Breadcrumb>

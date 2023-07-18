@@ -30,7 +30,7 @@ function Index() {
 
   const searchTemplate = (value: string) => {
     const filterData = FastDeployTemplates?.filter((item: TemplateType) => {
-      return item?.spec?.title?.toLowerCase().includes(value.toLowerCase());
+      return item?.metadata?.name?.toLowerCase().includes(value.toLowerCase());
     });
     setSearchResults(filterData);
   };
@@ -41,12 +41,11 @@ function Index() {
 
   const goDeploy = (name: string) => {
     if (!name) return;
-    const str = name.toLowerCase();
     router.push({
       pathname: '/deploy',
       query: {
         type: 'form',
-        templateName: str
+        templateName: name
       }
     });
   };
@@ -57,11 +56,12 @@ function Index() {
   };
 
   useEffect(() => {
-    if (router.query?.templateName) {
+    if (router?.query?.templateName) {
+      const name = router?.query?.tamplateName;
       router.push({
         pathname: '/deploy',
         query: {
-          templateName: router.query?.templateName
+          templateName: name
         }
       });
     }
@@ -110,12 +110,12 @@ function Index() {
             filterData?.map((item: TemplateType) => {
               return (
                 <Flex
-                  onClick={() => goDeploy(item?.spec?.title)}
+                  onClick={() => goDeploy(item?.metadata?.name)}
                   _hover={{
                     borderColor: '#36ADEF',
                     boxShadow: '0px 4px 5px 0px rgba(185, 196, 205, 0.25)'
                   }}
-                  key={item.spec.title}
+                  key={item?.metadata?.name}
                   flexDirection={'column'}
                   w={'328px'}
                   minH={'214px'}
@@ -138,7 +138,7 @@ function Index() {
                     </Text>
                     <Flex
                       cursor={'pointer'}
-                      onClick={() => goDeploy(item?.spec?.title)}
+                      onClick={() => goDeploy(item?.metadata?.name)}
                       justifyContent={'center'}
                       alignItems={'center'}
                       w={'60px'}

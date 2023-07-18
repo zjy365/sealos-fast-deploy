@@ -20,15 +20,12 @@ const Form = ({
   if (!formHook) return null;
   const { t } = useTranslation();
   const router = useRouter();
-  const { name, templateName } = router.query as QueryType;
+  const { templateName } = router.query as QueryType;
   const theme = useTheme();
-  const isEdit = useMemo(() => !!name, [name]);
+  const isShowContent = useMemo(() => !!formSource?.inputs?.length, [formSource?.inputs?.length]);
 
   const {
     register,
-    control,
-    setValue,
-    getValues,
     formState: { errors }
   } = formHook;
 
@@ -73,7 +70,7 @@ const Form = ({
         <MyIcon name={'formInfo'} mr={5} w={'24px'} color={'myGray.500'} />
         基础配置
       </Box>
-      {formSource?.inputs?.length > 0 ? (
+      {isShowContent ? (
         <Box px={'42px'} py={'24px'}>
           {formSource?.inputs?.map((item: any) => {
             return (
@@ -83,7 +80,6 @@ const Form = ({
                   <Input
                     ml={'20px'}
                     defaultValue={item?.default}
-                    disabled={isEdit}
                     autoFocus={true}
                     placeholder={item?.description}
                     {...register(item?.key, {
