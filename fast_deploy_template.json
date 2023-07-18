@@ -3,6 +3,111 @@
     "apiVersion": "template.app.sealos.io/v1beta1",
     "kind": "Template",
     "metadata": {
+      "name": "Halo"
+    },
+    "spec": {
+      "title": "Halo",
+      "url": "https://halo.run/",
+      "github": "https://github.com/halo-dev/halo",
+      "author": "sealos",
+      "description": "Powerful and easy-to-use open source website building tool",
+      "readme": "https://raw.githubusercontent.com/halo-dev/halo/main/README.md",
+      "icon": "https://avatars.githubusercontent.com/u/48195280?s=48&v=4",
+      "template_type": "inline",
+      "defaults": {
+        "app_host": {
+          "type": "string",
+          "value": "${{ random(8) }}"
+        },
+        "app_name": {
+          "type": "string",
+          "value": "halo-${{ random(8) }}"
+        }
+      },
+      "inputs": {
+        "admin_username": {
+          "description": "Halo Super Admin Username",
+          "type": "string",
+          "default": "admin",
+          "required": false
+        },
+        "admin_password": {
+          "description": "Halo Super Admin Password",
+          "type": "string",
+          "default": "admin",
+          "required": false
+        }
+      }
+    }
+  },
+  {
+    "apiVersion": "template.app.sealos.io/v1beta1",
+    "kind": "Template",
+    "metadata": {
+      "name": "PagePlug"
+    },
+    "spec": {
+      "title": "PagePlug",
+      "url": "https://lowcode.methodot.com/",
+      "github": "https://github.com/cloudtogo/pageplug",
+      "author": "sealos",
+      "description": "PagePlug is a Chinese project of Appsmith. It is an open source, declarative, visual frontend low-code framework that can be used to build web applications and WeChat mini programs.",
+      "readme": "https://raw.githubusercontent.com/cloudtogo/pageplug/open-v1.8/README.md",
+      "icon": "https://avatars.githubusercontent.com/u/23050952?s=48&v=4",
+      "template_type": "inline",
+      "defaults": {
+        "app_host": {
+          "type": "string",
+          "value": "${{ random(8) }}"
+        },
+        "app_name": {
+          "type": "string",
+          "value": "pageplug-${{ random(8) }}"
+        }
+      },
+      "inputs": null
+    }
+  },
+  {
+    "apiVersion": "template.app.sealos.io/v1beta1",
+    "kind": "Template",
+    "metadata": {
+      "name": "Tailchat"
+    },
+    "spec": {
+      "title": "Tailchat",
+      "url": "https://tailchat.msgbyte.com/",
+      "github": "https://github.com/msgbyte/tailchat",
+      "author": "sealos",
+      "description": "The next-generation noIM Application in your own workspace",
+      "readme": "https://raw.githubusercontent.com/msgbyte/tailchat/master/README.md",
+      "icon": "https://avatars.githubusercontent.com/u/86033898?s=48&v=4",
+      "template_type": "inline",
+      "defaults": {
+        "app_host": {
+          "type": "string",
+          "value": "${{ random(8) }}"
+        },
+        "minio_host": {
+          "type": "string",
+          "value": "${{ random(8) }}"
+        },
+        "redis_host": {
+          "type": "string",
+          "value": "${{ random(8) }}"
+        },
+        "app_name": {
+          "type": "string",
+          "value": "tailchat-${{ random(8) }}"
+        }
+      },
+      "inputs": null
+    }
+  },
+  {
+    "apiVersion": "template.app.sealos.io/v1beta1",
+    "kind": "Template",
+    "metadata": {
       "name": "Appsmith"
     },
     "spec": {
@@ -80,47 +185,6 @@
     "apiVersion": "template.app.sealos.io/v1beta1",
     "kind": "Template",
     "metadata": {
-      "name": "Halo"
-    },
-    "spec": {
-      "title": "Halo",
-      "url": "https://halo.run/",
-      "github": "https://github.com/halo-dev/halo",
-      "author": "sealos",
-      "description": "Powerful and easy-to-use open source website building tool",
-      "readme": "https://raw.githubusercontent.com/halo-dev/halo/main/README.md",
-      "icon": "https://avatars.githubusercontent.com/u/48195280?s=48&v=4",
-      "template_type": "inline",
-      "defaults": {
-        "app_host": {
-          "type": "string",
-          "value": "${{ random(8) }}"
-        },
-        "app_name": {
-          "type": "string",
-          "value": "halo-${{ random(8) }}"
-        }
-      },
-      "inputs": {
-        "admin_username": {
-          "description": "Halo Super Admin Username",
-          "type": "string",
-          "default": "admin",
-          "required": false
-        },
-        "admin_password": {
-          "description": "Halo Super Admin Password",
-          "type": "string",
-          "default": "admin",
-          "required": false
-        }
-      }
-    }
-  },
-  {
-    "apiVersion": "template.app.sealos.io/v1beta1",
-    "kind": "Template",
-    "metadata": {
       "name": "illaBuilder"
     },
     "spec": {
@@ -170,70 +234,6 @@
           "value": "appsmith-${{ random(8) }}"
         }
       }
-    }
-  },
-  {
-    "apiVersion": "template.app.sealos.io/v1beta1",
-    "kind": "Template",
-    "metadata": {
-      "name": "PagePlug"
-    },
-    "spec": {
-      "title": "PagePlug",
-      "url": "https://lowcode.methodot.com/",
-      "github": "https://github.com/cloudtogo/pageplug",
-      "author": "sealos",
-      "description": "PagePlug is a Chinese project of Appsmith. It is an open source, declarative, visual frontend low-code framework that can be used to build web applications and WeChat mini programs.",
-      "readme": "https://raw.githubusercontent.com/cloudtogo/pageplug/open-v1.8/README.md",
-      "icon": "https://avatars.githubusercontent.com/u/23050952?s=48&v=4",
-      "template_type": "inline",
-      "defaults": {
-        "app_host": {
-          "type": "string",
-          "value": "${{ random(8) }}"
-        },
-        "app_name": {
-          "type": "string",
-          "value": "pageplug-${{ random(8) }}"
-        }
-      },
-      "inputs": null
-    }
-  },
-  {
-    "apiVersion": "template.app.sealos.io/v1beta1",
-    "kind": "Template",
-    "metadata": {
-      "name": "Tailchat"
-    },
-    "spec": {
-      "title": "Tailchat",
-      "url": "https://tailchat.msgbyte.com/",
-      "github": "https://github.com/msgbyte/tailchat",
-      "author": "sealos",
-      "description": "The next-generation noIM Application in your own workspace",
-      "readme": "https://raw.githubusercontent.com/msgbyte/tailchat/master/README.md",
-      "icon": "https://avatars.githubusercontent.com/u/86033898?s=48&v=4",
-      "template_type": "inline",
-      "defaults": {
-        "app_host": {
-          "type": "string",
-          "value": "${{ random(8) }}"
-        },
-        "minio_host": {
-          "type": "string",
-          "value": "${{ random(8) }}"
-        },
-        "redis_host": {
-          "type": "string",
-          "value": "${{ random(8) }}"
-        },
-        "app_name": {
-          "type": "string",
-          "value": "tailchat-${{ random(8) }}"
-        }
-      },
-      "inputs": null
     }
   },
   {

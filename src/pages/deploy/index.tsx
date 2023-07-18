@@ -10,7 +10,7 @@ import type { QueryType, YamlItemType } from '@/types';
 import { TemplateSource, TemplateType } from '@/types/app';
 import { serviceSideProps } from '@/utils/i18n';
 import { generateYamlList, parseTemplateString } from '@/utils/json-yaml';
-import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Flex, Text } from '@chakra-ui/react';
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, Flex } from '@chakra-ui/react';
 import { useQuery } from '@tanstack/react-query';
 import JSYAML from 'js-yaml';
 import { has, isObject, mapValues, reduce } from 'lodash';
@@ -23,7 +23,6 @@ import { useForm } from 'react-hook-form';
 import Form from './components/Form';
 import Header from './components/Header';
 import ReadMe from './components/ReadMe';
-import Yaml from './components/Yaml';
 
 const ErrorModal = dynamic(() => import('./components/ErrorModal'));
 
@@ -32,8 +31,6 @@ const EditApp = ({ appName, tabType }: { appName?: string; tabType: string }) =>
   const { toast } = useToast();
   const router = useRouter();
   const { templateName } = router.query as QueryType;
-  console.log(templateName, 'template name ---');
-
   const { Loading, setIsLoading } = useLoading();
   const [forceUpdate, setForceUpdate] = useState(false);
   const { title, applyBtnText, applyMessage, applySuccess, applyError } = editModeMap(!!appName);
@@ -110,7 +107,9 @@ const EditApp = ({ appName, tabType }: { appName?: string; tabType: string }) =>
       //   const str = JSYAML.dump(item);
       //   console.log(str);
       // }),
-      await postDeployApp(yamls);
+      const result = await postDeployApp(yamls);
+      console.log(result);
+
       toast({
         title: t(applySuccess),
         status: 'success'
@@ -196,8 +195,8 @@ const EditApp = ({ appName, tabType }: { appName?: string; tabType: string }) =>
           borderBottom={'1px solid #DEE0E2'}
           justifyContent={'start'}
           alignItems={'center'}
-          backgroundColor={'rgba(255, 255, 255, 0.10)'}
-          backdropBlur={'25px'}>
+          backgroundColor={'rgba(255, 255, 255)'}
+          backdropBlur={'100px'}>
           <Breadcrumb
             fontWeight={500}
             fontSize={16}
@@ -231,7 +230,7 @@ const EditApp = ({ appName, tabType }: { appName?: string; tabType: string }) =>
             applyBtnText={applyBtnText}
             applyCb={() => formHook.handleSubmit(openConfirm(submitSuccess), submitError)()}
           />
-          <Flex w={'1000px'} m={'32px auto'} flexDirection="column">
+          <Flex w={{ md: '1000px', base: '800px' }} m={'32px auto'} flexDirection="column">
             <Form formHook={formHook} pxVal={pxVal} formSource={templateSource?.source} />
             {/* <Yaml yamlList={yamlList} pxVal={pxVal}></Yaml> */}
             <ReadMe templateDetail={templateDetail} />

@@ -1,16 +1,12 @@
-import React, { useCallback } from 'react';
-import { Box, Flex, Button, Text, Image } from '@chakra-ui/react';
-import { useRouter } from 'next/router';
-import JSZip from 'jszip';
+import MyIcon from '@/components/Icon';
+import { TemplateType } from '@/types/app';
 import type { YamlItemType } from '@/types/index';
 import { downLoadBold } from '@/utils/tools';
+import { Box, Button, Flex, Image, Text } from '@chakra-ui/react';
 import dayjs from 'dayjs';
-import { useGlobalStore } from '@/store/global';
+import JSZip from 'jszip';
 import { useTranslation } from 'next-i18next';
-import { useQuery } from '@tanstack/react-query';
-import { GET } from '@/services/request';
-import { TemplateType } from '@/types/app';
-import MyIcon from '@/components/Icon';
+import { useCallback, MouseEvent } from 'react';
 
 const Header = ({
   appName,
@@ -42,15 +38,21 @@ const Header = ({
     );
   }, [appName, yamlList]);
 
+  const goGithub = (e: MouseEvent<HTMLDivElement>, url: string) => {
+    e.stopPropagation();
+    window.open(url, '_blank');
+  };
+
   return (
     <Flex
-      w={'1000px'}
+      w={{ md: '1000px', base: '800px' }}
       m={'0 auto'}
       h={'80px'}
       mt={'32px'}
       alignItems={'center'}
       backgroundColor={'rgba(255, 255, 255, 0.90)'}>
       <Flex
+        flexShrink={0}
         alignItems={'center'}
         justifyContent={'center'}
         w={'80px'}
@@ -65,7 +67,9 @@ const Header = ({
           <Text fontSize={'24px'} fontWeight={600} color={'#24282C'}>
             {templateDetail?.spec?.title}
           </Text>
-          <MyIcon ml={'16px'} name="jump"></MyIcon>
+          <Box cursor={'pointer'} onClick={(e) => goGithub(e, templateDetail?.spec?.github)}>
+            <MyIcon ml={'16px'} name="jump"></MyIcon>
+          </Box>
           <Text ml={'16px'} fontSize={'12px'} color={'5A646E'} fontWeight={400}>
             By {templateDetail?.spec?.author}
           </Text>

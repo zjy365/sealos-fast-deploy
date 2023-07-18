@@ -67,8 +67,6 @@ const Form = ({
     backgroundColor: 'myWhite.600'
   };
 
-  console.log(formSource?.inputs);
-
   return (
     <Box flexGrow={1} id={'baseInfo'} {...boxStyles}>
       <Box {...headerStyles}>

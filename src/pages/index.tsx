@@ -167,14 +167,6 @@ function Index() {
                   <Flex mt={'12px'} justifyContent={'space-between'} alignItems={'center'}>
                     <Flex alignItems={'center'} fontSize={'12px'} color={'5A646E'} fontWeight={400}>
                       <Text>By</Text>
-                      {/* <Flex
-                        ml={'4px'}
-                        w={'14px'}
-                        h={'14px'}
-                        justifyContent="center"
-                        alignItems={'center'}>
-                        <MyIcon name="sealosGrey"></MyIcon>
-                      </Flex> */}
                       <Text ml={'4px'}>{item?.spec?.author}</Text>
                     </Flex>
                     <Box cursor={'pointer'} onClick={(e) => goGithub(e, item?.spec?.github)}>

@@ -1,3 +1,7 @@
-.appEdit {
-  $bgColor: #f3f4f5;
+.customMarkDownBody {
+  .markdown-body {
+    img {
+      display: inline-block;
+    }
+  }
 }
