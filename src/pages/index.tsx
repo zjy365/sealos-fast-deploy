@@ -1,7 +1,9 @@
 import { updateRepo } from '@/api/platform';
 import MyIcon from '@/components/Icon';
+import LangSelect from '@/components/LangSelect';
 import { GET } from '@/services/request';
 import { TemplateType } from '@/types/app';
+import { serviceSideProps } from '@/utils/i18n';
 import {
   Box,
   Flex,
@@ -13,10 +15,12 @@ import {
   Text
 } from '@chakra-ui/react';
 import { useQuery } from '@tanstack/react-query';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import { ChangeEvent, MouseEvent, useEffect, useMemo, useState } from 'react';
 
 function Index() {
+  const { t, i18n } = useTranslation();
   const router = useRouter();
   const [searchValue, setSearchValue] = useState('');
   const [searchResults, setSearchResults] = useState([]);
@@ -71,10 +75,10 @@ function Index() {
     <Box flexDirection={'column'} height={'100%'} overflow={'auto'} backgroundColor={'#edeff0'}>
       <Flex justifyContent={'center'} flexDirection={'column'} alignItems={'center'} pt={'24px'}>
         <Text color={'24282C'} fontSize={'48px'} fontWeight={500}>
-          模板商店
+          {t('Template Store')}
         </Text>
         <Text color={'5A646E'} fontSize={'12px'} fontWeight={500}>
-          为您预先构建解决方案，体验一键部署应用
+          {t('One Click Deployment')}
         </Text>
         <InputGroup mt={'24px'} maxWidth={'674px'}>
           <InputLeftElement pointerEvents="none" pt={'6px'}>
@@ -95,7 +99,7 @@ function Index() {
             h={'42px'}
             backgroundColor={'#FFF'}
             type="tel"
-            placeholder="模板名称"
+            placeholder={t('Template Name') || 'Template Name'}
             onChange={handleSearch}
           />
         </InputGroup>
@@ -180,6 +184,14 @@ function Index() {
       </Flex>
     </Box>
   );
+}
+
+export async function getServerSideProps(content: any) {
+  return {
+    props: {
+      ...(await serviceSideProps(content))
+    }
+  };
 }
 
 export default Index;

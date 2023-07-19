@@ -132,7 +132,7 @@
   "File Name": "文件名",
   "Filename can not empty": "文件名不能为空",
   "File Value can not empty": "文件值不能为空",
-  "ConfigMap Conflict": "ConfigMap Path Conflict",
+  "ConfigMap Path Conflict": "ConfigMap Path Conflict",
   "Storage path can not empty": "挂载路径不能为空",
   "Storage Range": "容量范围",
   "Storage Value can not empty": "容量不能为空",
@@ -143,5 +143,9 @@
   "Submit Error": "提交表单错误",
   "Copy Success": "复制成功",
   "TemplateNameError": "模板名称不能为空",
-  "Template Config": "模板配置"
+  "Template Config": "模板配置",
+  "Template Store": "模板商店",
+  "One Click Deployment": "为您预先构建解决方案，体验一键部署应用",
+  "Template Name": "模板名称",
+  "Template List": " 模板列表"
 }

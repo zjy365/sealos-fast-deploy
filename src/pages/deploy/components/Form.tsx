@@ -1,8 +1,6 @@
 import MyIcon from '@/components/Icon';
-import Tabs from '@/components/Tabs';
 import type { QueryType } from '@/types';
-import { Box, Flex, FormControl, Grid, Input, useTheme, Text } from '@chakra-ui/react';
-import { customAlphabet } from 'nanoid';
+import { Box, Flex, FormControl, Input, Text, useTheme } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import { useMemo } from 'react';
@@ -18,7 +16,7 @@ const Form = ({
   formSource: any;
 }) => {
   if (!formHook) return null;
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const router = useRouter();
   const { templateName } = router.query as QueryType;
   const theme = useTheme();
@@ -68,7 +66,7 @@ const Form = ({
     <Box flexGrow={1} id={'baseInfo'} {...boxStyles}>
       <Box {...headerStyles}>
         <MyIcon name={'formInfo'} mr={5} w={'24px'} color={'myGray.500'} />
-        基础配置
+        {t('Basic Config')}
       </Box>
       {isShowContent ? (
         <Box px={'42px'} py={'24px'}>

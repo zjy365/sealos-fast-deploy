@@ -30,7 +30,7 @@ import Yaml from './components/Yaml';
 const ErrorModal = dynamic(() => import('./components/ErrorModal'));
 
 const EditApp = ({ appName, tabType }: { appName?: string; tabType: string }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { toast } = useToast();
   const router = useRouter();
   const { templateName } = router.query as QueryType;
@@ -222,7 +222,7 @@ const EditApp = ({ appName, tabType }: { appName?: string; tabType: string }) =>
             color={'#7B838B'}>
             <BreadcrumbItem textDecoration={'none'}>
               <BreadcrumbLink _hover={{ color: '#219BF4', textDecoration: 'none' }} href="/">
-                模板列表
+                {'Template List'}
               </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbItem color={'#262A32'} isCurrentPage={router.pathname === 'deploy'}>

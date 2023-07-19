@@ -1,11 +1,6 @@
-import { defaultEditVal } from '@/constants/editApp';
 import { useToast } from '@/hooks/useToast';
-import type { AppPatchPropsType } from '@/types/app';
-import { AppEditType, DeployKindsType } from '@/types/app';
 import dayjs from 'dayjs';
-import yaml from 'js-yaml';
 import { useTranslation } from 'next-i18next';
-import { YamlKindEnum } from './adapt';
 
 /**
  * copy text data
@@ -84,26 +79,6 @@ export const strToBase64 = (str: string) => {
     console.log(error);
   }
   return '';
-};
-/**
- * atob secret yaml
- */
-export const atobSecretYaml = (secret?: string): AppEditType['secret'] => {
-  if (!secret) return defaultEditVal.secret;
-  try {
-    const secretData = JSON.parse(window.atob(secret)).auths;
-    const serverAddress = Object.keys(secretData)[0];
-
-    return {
-      serverAddress,
-      username: secretData[serverAddress].username,
-      password: secretData[serverAddress].password,
-      use: true
-    };
-  } catch (error) {
-    console.log(error);
-  }
-  return defaultEditVal.secret;
 };
 
 /**
@@ -214,43 +189,3 @@ export function downLoadBold(content: BlobPart, type: string, fileName: string) 
   // 模拟点击 a 标签下载文件
   link.click();
 }
-
-/**
- * patch yamlList and get action
- */
-export const patchYamlList = (oldYamlList: string[], newYamlList: string[]) => {
-  const oldJsonYaml = oldYamlList.map((item) => yaml.loadAll(item)).flat() as DeployKindsType[];
-  const newJsonYaml = newYamlList.map((item) => yaml.loadAll(item)).flat() as DeployKindsType[];
-
-  const actions: AppPatchPropsType = [];
-
-  // find delete
-  oldJsonYaml.forEach((oldYaml) => {
-    const item = newJsonYaml.find((item) => item.kind === oldYaml.kind);
-    if (!item) {
-      actions.push({
-        type: 'delete',
-        kind: oldYaml.kind as `${YamlKindEnum}`
-      });
-    }
-  });
-  // find create and patch
-  newJsonYaml.forEach((newYaml) => {
-    const patchYaml = oldJsonYaml.find((item) => item.kind === newYaml.kind);
-    if (patchYaml) {
-      actions.push({
-        type: 'patch',
-        kind: newYaml.kind as `${YamlKindEnum}`,
-        value: newYaml
-      });
-    } else {
-      actions.push({
-        type: 'create',
-        kind: newYaml.kind as `${YamlKindEnum}`,
-        value: yaml.dump(newYaml)
-      });
-    }
-  });
-
-  return actions;
-};
