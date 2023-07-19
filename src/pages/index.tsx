@@ -24,7 +24,10 @@ function Index() {
   const router = useRouter();
   const [searchValue, setSearchValue] = useState('');
   const [searchResults, setSearchResults] = useState([]);
-  const { data: FastDeployTemplates } = useQuery(['cloneTemplte'], () => GET('/api/listTemplate'));
+  const { data: FastDeployTemplates } = useQuery(['cloneTemplte'], () => GET('/api/listTemplate'), {
+    refetchInterval: 5 * 60 * 1000,
+    staleTime: 5 * 60 * 1000
+  });
   useQuery(['updateRepo'], () => updateRepo());
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
@@ -114,6 +117,7 @@ function Index() {
             filterData?.map((item: TemplateType) => {
               return (
                 <Flex
+                  cursor={'pointer'}
                   onClick={() => goDeploy(item?.metadata?.name)}
                   _hover={{
                     borderColor: '#36ADEF',

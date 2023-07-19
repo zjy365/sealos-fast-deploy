@@ -52,7 +52,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         if (!item) return;
         const content = fs.readFileSync(item, 'utf-8');
         const yamlTemplate: any = JSYAML.loadAll(content)[0];
-        jsonObjArr.push(yamlTemplate);
+        if (!!yamlTemplate) {
+          jsonObjArr.push(yamlTemplate);
+        }
       } catch (error) {
         console.log(error, 'yaml parse error');
       }

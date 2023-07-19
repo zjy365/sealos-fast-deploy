@@ -189,3 +189,14 @@ export function downLoadBold(content: BlobPart, type: string, fileName: string) 
   // 模拟点击 a 标签下载文件
   link.click();
 }
+
+export const parseGithubUrl = (url: string) => {
+  if (!url) return null;
+  var urlObj = new URL(url);
+  var pathParts = urlObj.pathname.split('/');
+  return {
+    organization: pathParts[1],
+    repository: pathParts[2],
+    branch: pathParts[3]
+  };
+};

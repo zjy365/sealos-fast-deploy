@@ -9,20 +9,25 @@ import remarkGfm from 'remark-gfm';
 import remarkUnwrapImages from 'remark-unwrap-images';
 import rehypeRewrite from 'rehype-rewrite';
 import styles from './index.module.scss';
+import { parseGithubUrl } from '@/utils/tools';
+import { Octokit, App } from 'octokit';
 
 const ReadMe = ({ templateDetail }: { templateDetail: TemplateType }) => {
   const [templateReadMe, setTemplateReadMe] = useState('');
 
-  const parseGithubUrl = (url: string) => {
-    if (!url) return null;
-    var urlObj = new URL(url);
-    var pathParts = urlObj.pathname.split('/');
-    return {
-      organization: pathParts[1],
-      repository: pathParts[2],
-      branch: pathParts[3]
-    };
-  };
+  // const octokit = new Octokit({
+  //   auth: ''
+  // });
+  // useEffect(() => {
+  //   (async () => {
+  //     const result = await octokit.request('GET /repos/{owner}/{repo}/readme', {
+  //       owner: 'appsmithorg',
+  //       repo: 'appsmith',
+  //       headers: {}
+  //     });
+  //     console.log(result);
+  //   })();
+  // }, []);
 
   const githubOptions = useMemo(
     () => parseGithubUrl(templateDetail?.spec?.readme),
