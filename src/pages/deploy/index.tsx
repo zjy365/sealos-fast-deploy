@@ -54,7 +54,7 @@ const EditApp = ({ appName, tabType }: { appName?: string; tabType: string }) =>
   });
 
   const { openConfirm: openConfirm2, ConfirmChild: ConfirmChild2 } = useConfirm({
-    content: '您要跳转到应用详情页吗'
+    content: 'Do you want to jump to the app details page'
   });
 
   const pxVal = useMemo(() => {
@@ -249,7 +249,7 @@ const EditApp = ({ appName, tabType }: { appName?: string; tabType: string }) =>
           />
           <Flex w={{ md: '1000px', base: '800px' }} m={'32px auto'} flexDirection="column">
             <Form formHook={formHook} pxVal={pxVal} formSource={templateSource?.source} />
-            {/* <Yaml yamlList={yamlList} pxVal={pxVal}></Yaml> */}
+            <Yaml yamlList={yamlList} pxVal={pxVal}></Yaml>
             <ReadMe templateDetail={templateDetail} />
           </Flex>
         </Flex>

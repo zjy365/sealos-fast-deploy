@@ -64,7 +64,7 @@ function Index() {
 
   useEffect(() => {
     if (router?.query?.templateName) {
-      const name = router?.query?.tamplateName;
+      const name = router?.query?.templateName;
       router.push({
         pathname: '/deploy',
         query: {

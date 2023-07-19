@@ -107,6 +107,53 @@
     "apiVersion": "template.app.sealos.io/v1beta1",
     "kind": "Template",
     "metadata": {
+      "name": "gpt-academic"
+    },
+    "spec": {
+      "title": "gpt-academic",
+      "url": "https://huggingface.co/spaces/qingxu98/gpt-academic",
+      "github": "https://github.com/binary-husky/gpt_academic",
+      "author": "sealos",
+      "description": "Provide a graphical interactive interface for ChatGPT/GLM, especially optimized for the experience of reading, polishing, and writing academic papers, with a modular design.",
+      "readme": "https://raw.githubusercontent.com/binary-husky/gpt_academic/master/README.md",
+      "icon": "https://avatars.githubusercontent.com/u/96192199?s=96&v=4",
+      "template_type": "inline",
+      "defaults": {
+        "app_host": {
+          "type": "string",
+          "value": "${{ random(8) }}"
+        },
+        "app_name": {
+          "type": "string",
+          "value": "gpt-academic-${{ random(8) }}"
+        }
+      },
+      "inputs": {
+        "API_KEY": {
+          "description": "ChatGPT API KEY",
+          "type": "string",
+          "default": "",
+          "required": false
+        },
+        "USE_PROXY": {
+          "description": "Whether to use a proxy",
+          "type": "string",
+          "default": "False",
+          "required": false
+        },
+        "proxies": {
+          "description": "proxies address",
+          "type": "string",
+          "default": "{ \"http\": \"socks5h://localhost:10880\", \"https\":\"socks5h://localhost:10880\", }",
+          "required": false
+        }
+      }
+    }
+  },
+  {
+    "apiVersion": "template.app.sealos.io/v1beta1",
+    "kind": "Template",
+    "metadata": {
       "name": "halo"
     },
     "spec": {
@@ -170,6 +217,59 @@
         }
       },
       "inputs": null
+    }
+  },
+  {
+    "apiVersion": "template.app.sealos.io/v1beta1",
+    "kind": "Template",
+    "metadata": {
+      "name": "midjourney-ui"
+    },
+    "spec": {
+      "title": "midjourney-ui",
+      "url": "https://github.com/topics/midjourney-ui",
+      "github": "https://github.com/erictik/midjourney-ui",
+      "author": "sealos",
+      "description": "Midjourney UI is an open source txt2img UI for AI draw.",
+      "readme": "https://raw.githubusercontent.com/erictik/midjourney-ui/main/README.md",
+      "icon": "https://avatars.githubusercontent.com/u/108114582?s=96&v=4",
+      "template_type": "inline",
+      "defaults": {
+        "app_host": {
+          "type": "string",
+          "value": "${{ random(8) }}"
+        },
+        "app_name": {
+          "type": "string",
+          "value": "midjourney-ui-${{ random(8) }}"
+        }
+      },
+      "inputs": {
+        "SALAI_TOKEN": {
+          "description": "SALAI_TOKEN",
+          "type": "string",
+          "default": "",
+          "required": false
+        },
+        "SERVER_ID": {
+          "description": "SERVER_ID",
+          "type": "string",
+          "default": "",
+          "required": false
+        },
+        "CHANNEL_ID": {
+          "description": "CHANNEL_ID",
+          "type": "string",
+          "default": "",
+          "required": false
+        },
+        "HUGGINGFACE_TOKEN": {
+          "description": "HUGGINGFACE_TOKEN",
+          "type": "string",
+          "default": "",
+          "required": false
+        }
+      }
     }
   },
   {

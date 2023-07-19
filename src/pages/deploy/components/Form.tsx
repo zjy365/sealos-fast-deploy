@@ -16,7 +16,7 @@ const Form = ({
   formSource: any;
 }) => {
   if (!formHook) return null;
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const router = useRouter();
   const { templateName } = router.query as QueryType;
   const theme = useTheme();
@@ -82,7 +82,7 @@ const Form = ({
                     placeholder={item?.description}
                     {...register(item?.key, {
                       required: item?.required,
-                      setValueAs: (v) => v.toString()
+                      setValueAs: (v) => `"${v}"`
                     })}
                   />
                 </Flex>
@@ -107,7 +107,7 @@ const Form = ({
             <MyIcon color={'#7B838B'} name="empty"></MyIcon>
           </Flex>
           <Text mt={'12px'} fontSize={14} color={'#5A646E'}>
-            当前应用不需要配置任何参数
+            {t('Not need to configure any parameters')}
           </Text>
         </Flex>
       )}
