@@ -66,7 +66,7 @@ const Form = ({
     <Box flexGrow={1} id={'baseInfo'} {...boxStyles}>
       <Box {...headerStyles}>
         <MyIcon name={'formInfo'} mr={5} w={'24px'} color={'myGray.500'} />
-        {t('Basic Config')}
+        {t('Configure Project')}
       </Box>
       {isShowContent ? (
         <Box px={'42px'} py={'24px'}>

@@ -222,7 +222,7 @@ const EditApp = ({ appName, tabType }: { appName?: string; tabType: string }) =>
             color={'#7B838B'}>
             <BreadcrumbItem textDecoration={'none'}>
               <BreadcrumbLink _hover={{ color: '#219BF4', textDecoration: 'none' }} href="/">
-                {'Template List'}
+                {t('Template List')}
               </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbItem color={'#262A32'} isCurrentPage={router.pathname === 'deploy'}>

@@ -140,8 +140,8 @@
   "Template Store": "Template Store",
   "One Click Deployment": "Pre-build solutions for you and experience one-click deployment of applications",
   "Template Name": "Template Name",
-  "Template List": " Template List",
-  "Basic Config": "Basic Config",
+  "Template List": " Templates",
+  "Configure Project": "Configure Project",
   "Not need to configure any parameters": "The current application does not need to configure any parameters",
   "Do you want to jump to the app details page": "Do you want to jump to the app details page"
 }

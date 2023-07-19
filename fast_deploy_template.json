@@ -31,6 +31,153 @@
     "apiVersion": "template.app.sealos.io/v1beta1",
     "kind": "Template",
     "metadata": {
+      "name": "chatbot-ui"
+    },
+    "spec": {
+      "title": "chatbot-ui",
+      "url": "https://www.chatbotui.com/",
+      "github": "https://github.com/mckaywrigley/chatbot-ui",
+      "author": "sealos",
+      "description": "Chatbot UI is an open source chat UI for AI models.",
+      "readme": "https://raw.githubusercontent.com/mckaywrigley/chatbot-ui/main/README.md",
+      "icon": "https://avatars.githubusercontent.com/u/29221284?s=96&v=4",
+      "template_type": "inline",
+      "defaults": {
+        "app_host": {
+          "type": "string",
+          "value": "${{ random(8) }}"
+        },
+        "app_name": {
+          "type": "string",
+          "value": "chatbot-ui-${{ random(8) }}"
+        }
+      },
+      "inputs": {
+        "OPENAI_API_KEY": {
+          "description": "The default API key used for authentication with OpenAI",
+          "type": "string",
+          "default": "",
+          "required": false
+        }
+      }
+    }
+  },
+  {
+    "apiVersion": "template.app.sealos.io/v1beta1",
+    "kind": "Template",
+    "metadata": {
+      "name": "chatgpt-next-web"
+    },
+    "spec": {
+      "title": "chatgpt-next-web",
+      "url": "https://github.com/topics/midjourney-ui",
+      "github": "https://github.com/erictik/midjourney-ui",
+      "author": "sealos",
+      "description": "Midjourney UI is an open source txt2img UI for AI draw.",
+      "readme": "https://raw.githubusercontent.com/erictik/midjourney-ui/main/README.md",
+      "icon": "https://avatars.githubusercontent.com/u/16968934?s=96&v=4",
+      "template_type": "inline",
+      "defaults": {
+        "app_host": {
+          "type": "string",
+          "value": "${{ random(8) }}"
+        },
+        "app_name": {
+          "type": "string",
+          "value": "chatgpt-next-web-${{ random(8) }}"
+        }
+      },
+      "inputs": {
+        "OPENAI_API_KEY": {
+          "description": "OPENAI_API_KEY",
+          "type": "string",
+          "default": "",
+          "required": true
+        },
+        "CODE": {
+          "description": "Access passsword, separated by comma.",
+          "type": "string",
+          "default": "",
+          "required": false
+        },
+        "BASE_URL": {
+          "description": "Override openai api request base url.",
+          "type": "string",
+          "default": "https://api.openai.com",
+          "required": false
+        },
+        "OPENAI_ORG_ID": {
+          "description": "Specify OpenAI organization ID.",
+          "type": "string",
+          "default": "",
+          "required": false
+        },
+        "HIDE_USER_API_KEY": {
+          "description": "Specify OpenAI organization ID.",
+          "type": "string",
+          "default": "",
+          "required": false
+        },
+        "DISABLE_GPT4": {
+          "description": "If you do not want users to use GPT-4, set this value to 1.",
+          "type": "string",
+          "default": "",
+          "required": false
+        },
+        "HIDE_BALANCE_QUERY": {
+          "description": "If you do not want users to query balance, set this value to 1.",
+          "type": "string",
+          "default": "",
+          "required": false
+        }
+      }
+    }
+  },
+  {
+    "apiVersion": "template.app.sealos.io/v1beta1",
+    "kind": "Template",
+    "metadata": {
+      "name": "chatgpt-web"
+    },
+    "spec": {
+      "title": "chatgpt-web",
+      "url": "https://github.com/Chanzhaoyu/chatgpt-web",
+      "github": "https://github.com/Chanzhaoyu/chatgpt-web",
+      "author": "sealos",
+      "description": "A demonstration webpage for ChatGPT built with Express and Vue3.",
+      "readme": "https://raw.githubusercontent.com/Chanzhaoyu/chatgpt-web/main/README.md",
+      "icon": "https://avatars.githubusercontent.com/u/24789441?s=96&v=4",
+      "template_type": "inline",
+      "defaults": {
+        "app_host": {
+          "type": "string",
+          "value": "${{ random(8) }}"
+        },
+        "app_name": {
+          "type": "string",
+          "value": "chatgpt-web-${{ random(8) }}"
+        }
+      },
+      "inputs": {
+        "OPENAI_API_KEY": {
+          "description": "Choose either OPENAI_API_KEY or OPENAI_ACCESS_TOKEN.",
+          "type": "string",
+          "default": "",
+          "required": false
+        },
+        "OPENAI_ACCESS_TOKEN": {
+          "description": "Choose either OPENAI_API_KEY or OPENAI_ACCESS_TOKEN.",
+          "type": "string",
+          "default": "",
+          "required": false
+        }
+      }
+    }
+  },
+  {
+    "apiVersion": "template.app.sealos.io/v1beta1",
+    "kind": "Template",
+    "metadata": {
       "name": "docker-stacks"
     },
     "spec": {
@@ -334,6 +481,41 @@
         }
       },
       "inputs": null
+    }
+  },
+  {
+    "apiVersion": "template.app.sealos.io/v1beta1",
+    "kind": "Template",
+    "metadata": {
+      "name": "umami"
+    },
+    "spec": {
+      "title": "Umami",
+      "url": "https://umami.is/",
+      "github": "https://github.com/umami-software/umami",
+      "author": "sealos",
+      "description": "Umami is an open source, privacy-focused alternative to Google Analytics.",
+      "readme": "https://raw.githubusercontent.com/umami-software/umami/master/README.md",
+      "icon": "https://avatars.githubusercontent.com/u/105618662?s=96&v=4",
+      "template_type": "inline",
+      "defaults": {
+        "app_host": {
+          "type": "string",
+          "value": "${{ random(8) }}"
+        },
+        "app_name": {
+          "type": "string",
+          "value": "umami-${{ random(8) }}"
+        }
+      },
+      "inputs": {
+        "APP_SECRET": {
+          "description": "replace me with a random string",
+          "type": "string",
+          "default": "admin",
+          "required": true
+        }
+      }
     }
   },
   {

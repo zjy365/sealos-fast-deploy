@@ -107,6 +107,7 @@ function Index() {
           />
         </InputGroup>
       </Flex>
+      {/* <LangSelect /> */}
       <Flex p={'32px'} minW={'750px'} maxW={'1448px'} m={'0 auto'} justifyContent={'center'}>
         <Grid
           justifyContent={'center'}
