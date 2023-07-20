@@ -78,7 +78,7 @@ function Index() {
     <Box flexDirection={'column'} height={'100%'} overflow={'auto'} backgroundColor={'#edeff0'}>
       <Flex justifyContent={'center'} flexDirection={'column'} alignItems={'center'} pt={'24px'}>
         <Text color={'24282C'} fontSize={'48px'} fontWeight={500}>
-          {t('Template Store')}
+          {t('Templates')}
         </Text>
         <Text color={'5A646E'} fontSize={'12px'} fontWeight={500}>
           {t('One Click Deployment')}
