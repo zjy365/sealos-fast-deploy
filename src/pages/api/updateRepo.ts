@@ -21,9 +21,8 @@ const readFileList = (targetPath: string, fileList: unknown[] = [], handlePath: 
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<ApiResp>) {
   try {
-    const repoUrl =
-      process.env.TEMPLATE_REPO_URL || 'git@github.com:a497625414/DelpoyOnSealosRepo.git';
-    const repoHttpUrl = 'https://github.com/a497625414/DelpoyOnSealosRepo.git';
+    const repoHttpUrl =
+      process.env.TEMPLATE_REPO_URL || 'https://github.com/a497625414/DelpoyOnSealosRepo.git';
     const originalPath = process.cwd();
     const targetPath = path.resolve(originalPath, 'FastDeployTemplates');
     const jsonPath = path.resolve(originalPath, 'fast_deploy_template.json');
