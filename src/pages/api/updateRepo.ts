@@ -22,7 +22,7 @@ const readFileList = (targetPath: string, fileList: unknown[] = [], handlePath: 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<ApiResp>) {
   try {
     const repoHttpUrl =
-      process.env.TEMPLATE_REPO_URL || 'https://github.com/a497625414/DelpoyOnSealosRepo.git';
+      process.env.TEMPLATE_REPO_URL || 'https://github.com/labring-actions/templates';
     const originalPath = process.cwd();
     const targetPath = path.resolve(originalPath, 'FastDeployTemplates');
     const jsonPath = path.resolve(originalPath, 'fast_deploy_template.json');
@@ -62,7 +62,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     const jsonContent = JSON.stringify(jsonObjArr, null, 2);
     fs.writeFileSync(jsonPath, jsonContent, 'utf-8');
 
-    jsonRes(res, { data: 'success update template', code: 200 });
+    jsonRes(res, { data: `success update template ${repoHttpUrl}`, code: 200 });
   } catch (err: any) {
     jsonRes(res, {
       code: 500,
