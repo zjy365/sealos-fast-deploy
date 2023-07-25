@@ -423,6 +423,77 @@
     "apiVersion": "template.app.sealos.io/v1beta1",
     "kind": "Template",
     "metadata": {
+      "name": "midjourney"
+    },
+    "spec": {
+      "title": "midjourney",
+      "url": "https://github.com/Licoy/ChatGPT-Midjourney",
+      "github": "https://github.com/Licoy/ChatGPT-Midjourney",
+      "author": "sealos",
+      "description": "One-click free deployment of your private ChatGPT+Midjourney web application",
+      "readme": "https://raw.githubusercontent.com/Licoy/ChatGPT-Midjourney/master/README.md",
+      "icon": "https://avatars.githubusercontent.com/u/20410697?s=96&v=4",
+      "template_type": "inline",
+      "defaults": {
+        "app_host": {
+          "type": "string",
+          "value": "${{ random(8) }}"
+        },
+        "app_name": {
+          "type": "string",
+          "value": "midjourney-${{ random(8) }}"
+        }
+      },
+      "inputs": {
+        "OPENAI_API_KEY": {
+          "description": "OPENAI_API_KEY",
+          "type": "string",
+          "default": "",
+          "required": true
+        },
+        "CODE": {
+          "description": "Access passsword, separated by comma.",
+          "type": "string",
+          "default": "",
+          "required": false
+        },
+        "PROXY_URL": {
+          "description": "proxy.",
+          "type": "string",
+          "default": "",
+          "required": false
+        },
+        "BASE_URL": {
+          "description": "Override openai api request base url.",
+          "type": "string",
+          "default": "https://api.openai.com",
+          "required": false
+        },
+        "OPENAI_ORG_ID": {
+          "description": "Specify OpenAI organization ID.",
+          "type": "string",
+          "default": "",
+          "required": false
+        },
+        "HIDE_USER_API_KEY": {
+          "description": "Specify OpenAI organization ID.",
+          "type": "string",
+          "default": "",
+          "required": false
+        },
+        "DISABLE_GPT4": {
+          "description": "If you do not want users to use GPT-4, set this value to 1.",
+          "type": "string",
+          "default": "",
+          "required": false
+        }
+      }
+    }
+  },
+  {
+    "apiVersion": "template.app.sealos.io/v1beta1",
+    "kind": "Template",
+    "metadata": {
       "name": "pageplug"
     },
     "spec": {
