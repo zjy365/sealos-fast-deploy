@@ -18,7 +18,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
     const TemplateEnvs = {
       SEALOS_CLOUD_DOMAIN: process.env.SEALOS_CLOUD_DOMAIN || 'cloud.sealos.io',
-      SEALOS_Cert_Secret_Name: process.env.SEALOS_Cert_Secret_Name || 'wildcard-cert',
+      SEALOS_CERT_SECRET_NAME: process.env.SEALOS_CERT_SECRET_NAME || 'wildcard-cert',
       TEMPLATE_REPO_PATH: process.env.TEMPLATE_REPO_PATH || 'template',
       SEALOS_NAMESPACE: namespace
     };
