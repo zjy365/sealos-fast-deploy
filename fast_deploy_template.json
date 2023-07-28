@@ -66,16 +66,87 @@
     "apiVersion": "template.app.sealos.io/v1beta1",
     "kind": "Template",
     "metadata": {
+      "name": "chatgpt-midjourney"
+    },
+    "spec": {
+      "title": "chatgpt-midjourney",
+      "url": "https://github.com/Licoy/ChatGPT-Midjourney",
+      "github": "https://github.com/Licoy/ChatGPT-Midjourney",
+      "author": "sealos",
+      "description": "One-click free deployment of your private ChatGPT+Midjourney web application",
+      "readme": "https://raw.githubusercontent.com/Licoy/ChatGPT-Midjourney/master/README.md",
+      "icon": "https://avatars.githubusercontent.com/u/20410697?s=96&v=4",
+      "template_type": "inline",
+      "defaults": {
+        "app_host": {
+          "type": "string",
+          "value": "${{ random(8) }}"
+        },
+        "app_name": {
+          "type": "string",
+          "value": "chatgpt-midjourney-${{ random(8) }}"
+        }
+      },
+      "inputs": {
+        "OPENAI_API_KEY": {
+          "description": "OPENAI_API_KEY",
+          "type": "string",
+          "default": "",
+          "required": true
+        },
+        "CODE": {
+          "description": "Access passsword, separated by comma.",
+          "type": "string",
+          "default": "",
+          "required": false
+        },
+        "PROXY_URL": {
+          "description": "proxy.",
+          "type": "string",
+          "default": "",
+          "required": false
+        },
+        "BASE_URL": {
+          "description": "Override openai api request base url.",
+          "type": "string",
+          "default": "https://api.openai.com",
+          "required": false
+        },
+        "OPENAI_ORG_ID": {
+          "description": "Specify OpenAI organization ID.",
+          "type": "string",
+          "default": "",
+          "required": false
+        },
+        "HIDE_USER_API_KEY": {
+          "description": "Specify OpenAI organization ID.",
+          "type": "string",
+          "default": "",
+          "required": false
+        },
+        "DISABLE_GPT4": {
+          "description": "If you do not want users to use GPT-4, set this value to 1.",
+          "type": "string",
+          "default": "",
+          "required": false
+        }
+      }
+    }
+  },
+  {
+    "apiVersion": "template.app.sealos.io/v1beta1",
+    "kind": "Template",
+    "metadata": {
       "name": "chatgpt-next-web"
     },
     "spec": {
       "title": "chatgpt-next-web",
-      "url": "https://github.com/topics/midjourney-ui",
-      "github": "https://github.com/erictik/midjourney-ui",
+      "url": "https://github.com/Yidadaa/ChatGPT-Next-Web",
+      "github": "https://github.com/Yidadaa/ChatGPT-Next-Web",
       "author": "sealos",
-      "description": "Midjourney UI is an open source txt2img UI for AI draw.",
-      "readme": "https://raw.githubusercontent.com/erictik/midjourney-ui/main/README.md",
-      "icon": "https://avatars.githubusercontent.com/u/16968934?s=96&v=4",
+      "description": "A well-designed cross-platform ChatGPT UI (Web / PWA / Linux / Win / MacOS). 一键拥有你自己的跨平台 ChatGPT 应用。 ",
+      "readme": "https://raw.githubusercontent.com/Yidadaa/ChatGPT-Next-Web/main/README.md",
+      "icon": "https://github.com/Yidadaa/ChatGPT-Next-Web/raw/main/docs/images/icon.svg",
       "template_type": "inline",
       "defaults": {
         "app_host": {
@@ -113,7 +184,7 @@
           "required": false
         },
         "HIDE_USER_API_KEY": {
-          "description": "Specify OpenAI organization ID.",
+          "description": "",
           "type": "string",
           "default": "",
           "required": false
@@ -228,21 +299,17 @@
         "fastgpt_admin_host": {
           "type": "string",
           "value": "${{ random(8) }}"
-        },
-        "fastgpt_keys_host": {
-          "type": "string",
-          "value": "${{ random(8) }}"
         }
       },
       "inputs": {
-        "mail": {
-          "description": "QQ email address",
+        "root_passowrd": {
+          "description": "root user password. username is \"root\"",
           "type": "string",
-          "default": "",
+          "default": "1234",
           "required": true
         },
-        "mail_code": {
-          "description": "QQ mail_code",
+        "openai_key": {
+          "description": "openai api key",
           "type": "string",
           "default": "",
           "required": true
@@ -423,16 +490,16 @@
     "apiVersion": "template.app.sealos.io/v1beta1",
     "kind": "Template",
     "metadata": {
-      "name": "midjourney"
+      "name": "openai-proxy"
     },
     "spec": {
-      "title": "midjourney",
-      "url": "https://github.com/Licoy/ChatGPT-Midjourney",
-      "github": "https://github.com/Licoy/ChatGPT-Midjourney",
+      "title": "Openai-proxy",
+      "url": "https://github.com/UNICKCHENG/openai-proxy",
+      "github": "https://openai-proxy.apifox.cn/",
       "author": "sealos",
-      "description": "One-click free deployment of your private ChatGPT+Midjourney web application",
-      "readme": "https://raw.githubusercontent.com/Licoy/ChatGPT-Midjourney/master/README.md",
-      "icon": "https://avatars.githubusercontent.com/u/20410697?s=96&v=4",
+      "description": "openai-proxy is a solution provided for Chinese users to address the issue of being unable to make requests to the OpenAI API.",
+      "readme": "https://raw.githubusercontent.com/UNICKCHENG/openai-proxy/main/readme.md",
+      "icon": "https://avatars.githubusercontent.com/u/32270702?s=96&v=4",
       "template_type": "inline",
       "defaults": {
         "app_host": {
@@ -441,53 +508,10 @@
         },
         "app_name": {
           "type": "string",
-          "value": "midjourney-${{ random(8) }}"
+          "value": "openai-proxy-${{ random(8) }}"
         }
       },
-      "inputs": {
-        "OPENAI_API_KEY": {
-          "description": "OPENAI_API_KEY",
-          "type": "string",
-          "default": "",
-          "required": true
-        },
-        "CODE": {
-          "description": "Access passsword, separated by comma.",
-          "type": "string",
-          "default": "",
-          "required": false
-        },
-        "PROXY_URL": {
-          "description": "proxy.",
-          "type": "string",
-          "default": "",
-          "required": false
-        },
-        "BASE_URL": {
-          "description": "Override openai api request base url.",
-          "type": "string",
-          "default": "https://api.openai.com",
-          "required": false
-        },
-        "OPENAI_ORG_ID": {
-          "description": "Specify OpenAI organization ID.",
-          "type": "string",
-          "default": "",
-          "required": false
-        },
-        "HIDE_USER_API_KEY": {
-          "description": "Specify OpenAI organization ID.",
-          "type": "string",
-          "default": "",
-          "required": false
-        },
-        "DISABLE_GPT4": {
-          "description": "If you do not want users to use GPT-4, set this value to 1.",
-          "type": "string",
-          "default": "",
-          "required": false
-        }
-      }
+      "inputs": null
     }
   },
   {

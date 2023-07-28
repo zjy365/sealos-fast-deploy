@@ -3,8 +3,17 @@ import type { QueryType } from '@/types';
 import { Box, Flex, FormControl, Input, Text, useTheme } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
-import { useMemo } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { UseFormReturn } from 'react-hook-form';
+
+type FormSourceInput = {
+  default: string;
+  description: string;
+  key: string;
+  label: string;
+  required: boolean;
+  type: string;
+};
 
 const Form = ({
   formHook,
@@ -21,29 +30,10 @@ const Form = ({
   const { templateName } = router.query as QueryType;
   const theme = useTheme();
   const isShowContent = useMemo(() => !!formSource?.inputs?.length, [formSource?.inputs?.length]);
-
   const {
     register,
     formState: { errors }
   } = formHook;
-
-  const Label = ({
-    children,
-    w = 'auto',
-    ...props
-  }: {
-    children: string;
-    w?: number | 'auto';
-    [key: string]: any;
-  }) => (
-    <Box
-      flex={`0 0 ${w === 'auto' ? 'auto' : `${w}px`}`}
-      {...props}
-      color={'#333'}
-      userSelect={'none'}>
-      {children}
-    </Box>
-  );
 
   const boxStyles = {
     border: theme.borders.base,
@@ -70,12 +60,25 @@ const Form = ({
       </Box>
       {isShowContent ? (
         <Box px={'42px'} py={'24px'}>
-          {formSource?.inputs?.map((item: any) => {
+          {formSource?.inputs?.map((item: FormSourceInput, index: number) => {
             return (
-              <FormControl key={item?.key} mb={7} isInvalid={!!errors.appName} w={'500px'}>
-                <Flex alignItems={'center'}>
-                  <Label w={80}>{item.label}</Label>
+              <FormControl key={item?.key} mb={7} isInvalid={!!errors.appName}>
+                <Flex alignItems={'center'} align="stretch">
+                  <Flex
+                    position={'relative'}
+                    w="200px"
+                    className="template-dynamic-label"
+                    color={'#333'}
+                    userSelect={'none'}>
+                    {item?.label}
+                    {item?.required && (
+                      <Text ml="2px" color={'#E53E3E'}>
+                        *
+                      </Text>
+                    )}
+                  </Flex>
                   <Input
+                    maxW={'500px'}
                     ml={'20px'}
                     defaultValue={item?.default}
                     autoFocus={true}
