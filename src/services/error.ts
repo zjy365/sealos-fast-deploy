@@ -1,6 +1,7 @@
 export const ERROR_TEXT: Record<string, string> = {
   ETIMEDOUT: '服务器超时'
 };
+
 export const openaiError: Record<string, string> = {
   context_length_exceeded: '内容超长了，请重置对话',
   Unauthorized: 'API-KEY 不合法',
@@ -9,6 +10,7 @@ export const openaiError: Record<string, string> = {
   'Too Many Requests': '请求次数太多了，请慢点~',
   'Bad Gateway': '网关异常，请重试'
 };
+
 export const proxyError: Record<string, boolean> = {
   ECONNABORTED: true,
   ECONNRESET: true
@@ -17,6 +19,7 @@ export const proxyError: Record<string, boolean> = {
 export enum ERROR_ENUM {
   unAuthorization = 'unAuthorization'
 }
+
 export const ERROR_RESPONSE: Record<
   any,
   {

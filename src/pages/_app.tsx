@@ -54,13 +54,7 @@ const App = ({ Component, pageProps, domain }: AppProps & { domain: string }) =>
         localStorage.setItem('session', JSON.stringify(res));
         console.log('app init success');
       } catch (err) {
-        console.log('App is not running in desktop');
-        if (!process.env.NEXT_PUBLIC_MOCK_USER) {
-          localStorage.removeItem('session');
-          openConfirm(() => {
-            window.open(`https://${domain}`, '_self');
-          })();
-        }
+        console.log(err, 'App is not running in desktop');
       }
     })();
     NProgress.done();

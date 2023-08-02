@@ -1,10 +1,8 @@
 import { jsonRes } from '@/services/backend/response';
 import { ApiResp } from '@/services/kubernet';
-import type { NextApiRequest, NextApiResponse } from 'next';
 import fs from 'fs';
-import { execSync } from 'child_process';
+import type { NextApiRequest, NextApiResponse } from 'next';
 import path from 'path';
-import JSYAML from 'js-yaml';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<ApiResp>) {
   const originalPath = process.cwd();

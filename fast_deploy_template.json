@@ -303,9 +303,9 @@
       },
       "inputs": {
         "root_passowrd": {
-          "description": "root user password. username is \"root\"",
+          "description": "Set root password. login: username: root, password: root_passowrd",
           "type": "string",
-          "default": "1234",
+          "default": "",
           "required": true
         },
         "openai_key": {
@@ -490,6 +490,34 @@
     "apiVersion": "template.app.sealos.io/v1beta1",
     "kind": "Template",
     "metadata": {
+      "name": "one-api"
+    },
+    "spec": {
+      "title": "one-api",
+      "url": "https://openai.justsong.cn/",
+      "github": "https://github.com/songquanpeng/one-api",
+      "author": "sealos",
+      "description": "OpenAI key management & redistribution system, using a single API for all LLMs, and features an English UI.",
+      "readme": "https://raw.githubusercontent.com/songquanpeng/one-api/main/README.md",
+      "icon": "https://avatars.githubusercontent.com/u/39998050?s=96&v=4",
+      "template_type": "inline",
+      "defaults": {
+        "app_host": {
+          "type": "string",
+          "value": "${{ random(8) }}"
+        },
+        "app_name": {
+          "type": "string",
+          "value": "one-api-${{ random(8) }}"
+        }
+      },
+      "inputs": null
+    }
+  },
+  {
+    "apiVersion": "template.app.sealos.io/v1beta1",
+    "kind": "Template",
+    "metadata": {
       "name": "openai-proxy"
     },
     "spec": {
@@ -540,6 +568,65 @@
         }
       },
       "inputs": null
+    }
+  },
+  {
+    "apiVersion": "template.app.sealos.io/v1beta1",
+    "kind": "Template",
+    "metadata": {
+      "name": "plausible"
+    },
+    "spec": {
+      "title": "plausible",
+      "url": "https://github.com/plausible/analytics",
+      "github": "https://github.com/plausible/analytics",
+      "author": "sealos",
+      "description": "Simple, open-source, lightweight (< 1 KB) and privacy-friendly web analytics alternative to Google Analytics.",
+      "readme": "https://raw.githubusercontent.com/plausible/analytics/master/README.md",
+      "icon": "https://raw.githubusercontent.com/plausible/docs/master/static/img/plausible-analytics-icon-top.png",
+      "template_type": "inline",
+      "defaults": {
+        "app_host": {
+          "type": "string",
+          "value": "${{ random(8) }}"
+        },
+        "app_name": {
+          "type": "string",
+          "value": "plausible-${{ random(8) }}"
+        }
+      },
+      "inputs": {
+        "CLICKHOUSE_USER": {
+          "description": "clickhouse user name",
+          "type": "string",
+          "default": "",
+          "required": true
+        },
+        "CLICKHOUSE_PASSWORD": {
+          "description": "clickhouse password",
+          "type": "string",
+          "default": "",
+          "required": true
+        },
+        "DISABLE_REGISTRATION": {
+          "description": "true or false",
+          "type": "string",
+          "default": "",
+          "required": false
+        },
+        "BASE_URL": {
+          "description": "URL of plausible server",
+          "type": "string",
+          "default": "",
+          "required": false
+        },
+        "SECRET_KEY_BASE": {
+          "description": "You can generate it using the following command: openssl rand -base64 64 | tr -d '\n' ; echo",
+          "type": "string",
+          "default": "FhNHzoWJyoQgT21RsFQG+KUzJ/o5YbKsszc6CMOArA0OXxjZ763oCGiItOPlKJAfIQO0uov8xt8p5k+MqtmtOQ==",
+          "required": true
+        }
+      }
     }
   },
   {

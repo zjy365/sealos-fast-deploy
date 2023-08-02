@@ -16,7 +16,7 @@ export type TemplateType = {
     defaults: Record<
       string,
       {
-        type: 'string';
+        type: string;
         value: string;
       }
     >;
@@ -24,7 +24,7 @@ export type TemplateType = {
       string,
       {
         description: string;
-        type: 'string';
+        type: string;
         default: string;
         required: boolean;
       }

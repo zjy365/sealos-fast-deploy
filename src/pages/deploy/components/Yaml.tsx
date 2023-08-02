@@ -1,9 +1,8 @@
 import MyIcon from '@/components/Icon';
-import Tabs from '@/components/Tabs';
 import YamlCode from '@/components/YamlCode/index';
 import type { QueryType, YamlItemType } from '@/types';
 import { useCopyData } from '@/utils/tools';
-import { Box, Flex, Grid, useTheme } from '@chakra-ui/react';
+import { Box, Flex, useTheme } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import styles from './index.module.scss';

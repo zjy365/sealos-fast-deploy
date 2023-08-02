@@ -12,15 +12,20 @@ import path from 'path';
 export default async function handler(req: NextApiRequest, res: NextApiResponse<ApiResp>) {
   try {
     const { templateName } = req.body;
-    const { namespace } = await getK8s({
-      kubeconfig: await authSession(req.headers)
-    });
+    let user_namespace = '';
+
+    try {
+      const { namespace } = await getK8s({
+        kubeconfig: await authSession(req.headers)
+      });
+      user_namespace = namespace;
+    } catch (error) {}
 
     const TemplateEnvs = {
       SEALOS_CLOUD_DOMAIN: process.env.SEALOS_CLOUD_DOMAIN || 'cloud.sealos.io',
       SEALOS_CERT_SECRET_NAME: process.env.SEALOS_CERT_SECRET_NAME || 'wildcard-cert',
       TEMPLATE_REPO_PATH: process.env.TEMPLATE_REPO_PATH || 'template',
-      SEALOS_NAMESPACE: namespace
+      SEALOS_NAMESPACE: user_namespace || ''
     };
 
     const originalPath = process.cwd();

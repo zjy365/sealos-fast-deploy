@@ -1,6 +1,5 @@
 import { updateRepo } from '@/api/platform';
 import MyIcon from '@/components/Icon';
-import LangSelect from '@/components/LangSelect';
 import { GET } from '@/services/request';
 import { TemplateType } from '@/types/app';
 import { serviceSideProps } from '@/utils/i18n';
@@ -20,15 +19,20 @@ import { useRouter } from 'next/router';
 import { ChangeEvent, MouseEvent, useEffect, useMemo, useState } from 'react';
 
 function Index() {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const router = useRouter();
   const [searchValue, setSearchValue] = useState('');
   const [searchResults, setSearchResults] = useState([]);
-  const { data: FastDeployTemplates } = useQuery(['cloneTemplte'], () => GET('/api/listTemplate'), {
+
+  const { data: FastDeployTemplates } = useQuery(['listTemplte'], () => GET('/api/listTemplate'), {
     refetchInterval: 5 * 60 * 1000,
     staleTime: 5 * 60 * 1000
   });
-  useQuery(['updateRepo'], () => updateRepo());
+
+  useQuery(['updateRepo'], () => updateRepo(), {
+    refetchInterval: 5 * 60 * 1000,
+    staleTime: 5 * 60 * 1000
+  });
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
