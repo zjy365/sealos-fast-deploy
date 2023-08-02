@@ -1,13 +1,14 @@
-import { getTemplate } from '@/api/app';
+import { getTemplate, postDeployApp } from '@/api/app';
 import MyIcon from '@/components/Icon';
 import { editModeMap } from '@/constants/editApp';
 import { useConfirm } from '@/hooks/useConfirm';
 import { useLoading } from '@/hooks/useLoading';
 import { useToast } from '@/hooks/useToast';
 import { GET } from '@/services/request';
+import { useCachedStore } from '@/store/cached';
 import { useGlobalStore } from '@/store/global';
 import type { QueryType, YamlItemType } from '@/types';
-import { TemplateSource, TemplateType } from '@/types/app';
+import { TemplateSource, TemplateType, YamlType } from '@/types/app';
 import { serviceSideProps } from '@/utils/i18n';
 import { generateYamlList, parseTemplateString } from '@/utils/json-yaml';
 import { getUserKubeConfig } from '@/utils/user';
@@ -21,6 +22,7 @@ import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { sealosApp } from 'sealos-desktop-sdk/app';
 import Form from './components/Form';
 import Header from './components/Header';
 import ReadMe from './components/ReadMe';
@@ -40,12 +42,15 @@ const EditApp = ({ appName, tabType }: { appName?: string; tabType: string }) =>
   const [correctYaml, setCorrectYaml] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const { screenWidth } = useGlobalStore();
+  const { setCached } = useCachedStore();
 
   const isUserLogin = useMemo(() => {
     return !!getUserKubeConfig();
   }, []);
 
   const { data: FastDeployTemplates } = useQuery(['cloneTemplte'], () => GET('/api/listTemplate'));
+
+  const { data: platformEnvs } = useQuery(['getPlatformEnvs'], () => GET('/api/platform/getEnv'));
 
   const templateDetail: TemplateType = FastDeployTemplates?.find(
     (item: TemplateType) => item?.metadata?.name === templateName
@@ -111,29 +116,36 @@ const EditApp = ({ appName, tabType }: { appName?: string; tabType: string }) =>
   const submitSuccess = async () => {
     setIsLoading(true);
     try {
+      if (!isUserLogin) {
+        setIsLoading(false);
+        setCached(JSON.stringify(formHook.getValues()));
+        const _name = encodeURIComponent(`?templateName=${templateName}&sealos_inside=true`);
+        // const _domain = platformEnvs.SEALOS_CLOUD_DOMAIN;
+        let _domain = 'http://localhost:3000';
+        const href = `https://${_domain}/?openapp=system-fastdeploy${_name}`;
+        return window.open(href, '_self');
+      }
       const detailName = templateSource?.source?.defaults?.app_name?.value;
-      const yamls = JSYAML.loadAll(correctYaml).map((item) => {
-        console.log(item, '---');
-        item['cloud.sealos.io/deploy-on-sealos'] = '';
+      const yamls = JSYAML.loadAll(correctYaml).map((item: any) => {
+        item.metadata.labels['cloud.sealos.io/deploy-on-sealos'] = detailName;
         return JSYAML.dump(item);
       });
 
-      // const result = await postDeployApp(yamls);
-      // console.log(result);
+      const result = await postDeployApp(yamls);
 
-      // toast({
-      //   title: t(applySuccess),
-      //   status: 'success'
-      // });
+      toast({
+        title: t(applySuccess),
+        status: 'success'
+      });
 
-      // openConfirm2(() => {
-      //   sealosApp.runEvents('openDesktopApp', {
-      //     appKey: 'system-applaunchpad',
-      //     pathname: '/app/detail',
-      //     query: { name: detailName },
-      //     messageData: {}
-      //   });
-      // })();
+      openConfirm2(() => {
+        sealosApp.runEvents('openDesktopApp', {
+          appKey: 'system-applaunchpad',
+          pathname: '/app/detail',
+          query: { name: detailName },
+          messageData: {}
+        });
+      })();
     } catch (error) {
       setErrorMessage(JSON.stringify(error));
     }
@@ -178,7 +190,6 @@ const EditApp = ({ appName, tabType }: { appName?: string; tabType: string }) =>
       return null;
     }
     const res: TemplateSource = await getTemplate(templateName);
-    console.log(res);
     setTemplateSource(res);
     try {
       const yamlString = res.yamlList?.map((item) => JSYAML.dump(item)).join('---\n');

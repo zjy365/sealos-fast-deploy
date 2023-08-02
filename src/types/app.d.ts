@@ -37,7 +37,7 @@ export type TemplateSource = {
     defaults: Record<
       string,
       {
-        type: 'string';
+        type: string;
         value: string;
       }
     >;
@@ -45,7 +45,7 @@ export type TemplateSource = {
       string,
       {
         description: string;
-        type: 'string';
+        type: string;
         default: string;
         required: boolean;
       }
@@ -54,4 +54,13 @@ export type TemplateSource = {
     SEALOS_NAMESPACE: string;
   };
   yamlList: any[];
+};
+
+export type YamlType = {
+  apiVersion: string;
+  kind: string;
+  metadata: {
+    name: string;
+    labels: { [key: string]: string };
+  };
 };
