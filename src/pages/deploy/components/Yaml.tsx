@@ -15,7 +15,7 @@ const Yaml = ({ yamlList = [], pxVal }: { yamlList: YamlItemType[]; pxVal: numbe
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   return (
-    <Flex mt={'12px'} w={'100%'} h={'100%'} gridGap={5} alignItems={'start'}>
+    <Flex mt={'12px'} w={'100%'} h={'100%'} gridGap={5} alignItems={'start'} zIndex={1}>
       {!!yamlList[selectedIndex] && (
         <Flex
           grow={1}

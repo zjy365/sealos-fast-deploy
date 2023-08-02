@@ -26,6 +26,7 @@ import { sealosApp } from 'sealos-desktop-sdk/app';
 import Form from './components/Form';
 import Header from './components/Header';
 import ReadMe from './components/ReadMe';
+import Yaml from './components/Yaml';
 
 const ErrorModal = dynamic(() => import('./components/ErrorModal'));
 
@@ -42,7 +43,7 @@ const EditApp = ({ appName, tabType }: { appName?: string; tabType: string }) =>
   const [correctYaml, setCorrectYaml] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const { screenWidth } = useGlobalStore();
-  const { setCached } = useCachedStore();
+  const { setCached, cached, deleteCached } = useCachedStore();
 
   const isUserLogin = useMemo(() => {
     return !!getUserKubeConfig();
@@ -85,9 +86,20 @@ const EditApp = ({ appName, tabType }: { appName?: string; tabType: string }) =>
     );
   };
 
+  const getCachedValue = () => {
+    if (!cached) return {};
+    const cachedValue = JSON.parse(cached);
+    console.log(cachedValue);
+
+    if (cachedValue?.cachedKey === templateName) {
+      return cachedValue;
+    }
+  };
+
   // form
   const formHook = useForm({
-    defaultValues: getFormDefaultValues(templateSource)
+    defaultValues: getFormDefaultValues(templateSource),
+    values: getCachedValue()
   });
 
   const formOnchangeDebounce = debounce(async (data: any) => {
@@ -118,13 +130,13 @@ const EditApp = ({ appName, tabType }: { appName?: string; tabType: string }) =>
     try {
       if (!isUserLogin) {
         setIsLoading(false);
-        setCached(JSON.stringify(formHook.getValues()));
+        setCached(JSON.stringify({ ...formHook.getValues(), cachedKey: templateName }));
         const _name = encodeURIComponent(`?templateName=${templateName}&sealos_inside=true`);
-        // const _domain = platformEnvs.SEALOS_CLOUD_DOMAIN;
-        let _domain = 'http://localhost:3000';
+        const _domain = platformEnvs.SEALOS_CLOUD_DOMAIN;
         const href = `https://${_domain}/?openapp=system-fastdeploy${_name}`;
         return window.open(href, '_self');
       }
+
       const detailName = templateSource?.source?.defaults?.app_name?.value;
       const yamls = JSYAML.loadAll(correctYaml).map((item: any) => {
         item.metadata.labels['cloud.sealos.io/deploy-on-sealos'] = detailName;
@@ -137,6 +149,8 @@ const EditApp = ({ appName, tabType }: { appName?: string; tabType: string }) =>
         title: t(applySuccess),
         status: 'success'
       });
+
+      deleteCached();
 
       openConfirm2(() => {
         sealosApp.runEvents('openDesktopApp', {
@@ -218,6 +232,7 @@ const EditApp = ({ appName, tabType }: { appName?: string; tabType: string }) =>
     <>
       <Flex flexDirection={'column'} alignItems={'center'} h={'100%'} minWidth={'1024px'}>
         <Flex
+          zIndex={99}
           position={'fixed'}
           top={0}
           left={0}
@@ -266,7 +281,7 @@ const EditApp = ({ appName, tabType }: { appName?: string; tabType: string }) =>
           />
           <Flex w={{ md: '1000px', base: '800px' }} m={'32px auto'} flexDirection="column">
             <Form formHook={formHook} pxVal={pxVal} formSource={templateSource?.source} />
-            {/* <Yaml yamlList={yamlList} pxVal={pxVal}></Yaml> */}
+            <Yaml yamlList={yamlList} pxVal={pxVal}></Yaml>
             <ReadMe templateDetail={templateDetail} />
           </Flex>
         </Flex>
