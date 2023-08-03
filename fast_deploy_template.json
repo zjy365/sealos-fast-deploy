@@ -614,12 +614,6 @@
           "default": "",
           "required": false
         },
-        "BASE_URL": {
-          "description": "URL of plausible server",
-          "type": "string",
-          "default": "",
-          "required": false
-        },
         "SECRET_KEY_BASE": {
           "description": "You can generate it using the following command: openssl rand -base64 64 | tr -d '\n' ; echo",
           "type": "string",

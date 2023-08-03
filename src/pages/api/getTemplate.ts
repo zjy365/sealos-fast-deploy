@@ -19,7 +19,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         kubeconfig: await authSession(req.headers)
       });
       user_namespace = namespace;
-    } catch (error) {}
+    } catch (error) {
+      console.log(error, 'errpr-');
+    }
 
     const TemplateEnvs = {
       SEALOS_CLOUD_DOMAIN: process.env.SEALOS_CLOUD_DOMAIN || 'cloud.sealos.io',

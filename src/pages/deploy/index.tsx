@@ -11,6 +11,7 @@ import type { QueryType, YamlItemType } from '@/types';
 import { TemplateSource, TemplateType, YamlType } from '@/types/app';
 import { serviceSideProps } from '@/utils/i18n';
 import { generateYamlList, parseTemplateString } from '@/utils/json-yaml';
+import { processEnvValue } from '@/utils/tools';
 import { getUserKubeConfig } from '@/utils/user';
 import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Flex } from '@chakra-ui/react';
 import { useQuery } from '@tanstack/react-query';
@@ -44,6 +45,11 @@ const EditApp = ({ appName, tabType }: { appName?: string; tabType: string }) =>
   const [errorMessage, setErrorMessage] = useState('');
   const { screenWidth } = useGlobalStore();
   const { setCached, cached, deleteCached } = useCachedStore();
+
+  const detailName = useMemo(
+    () => templateSource?.source?.defaults?.app_name?.value || '',
+    [templateSource]
+  );
 
   const isUserLogin = useMemo(() => {
     return !!getUserKubeConfig();
@@ -86,11 +92,30 @@ const EditApp = ({ appName, tabType }: { appName?: string; tabType: string }) =>
     );
   };
 
+  const formOnchangeDebounce = (data: any) => {
+    try {
+      console.log(data, templateSource, '--');
+
+      if (!templateSource) return;
+      console.log(data, templateSource);
+      const yamlString = templateSource.yamlList?.map((item) => JSYAML.dump(item)).join('---\n');
+      const output = mapValues(templateSource?.source.defaults, (value) => value.value);
+
+      const generateStr = parseTemplateString(yamlString, /\$\{\{\s*(.*?)\s*\}\}/g, {
+        ...templateSource?.source,
+        inputs: data,
+        defaults: output
+      });
+      setCorrectYaml(generateStr);
+      setYamlList(generateYamlList(generateStr, detailName));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const getCachedValue = () => {
     if (!cached) return {};
     const cachedValue = JSON.parse(cached);
-    console.log(cachedValue);
-
     if (cachedValue?.cachedKey === templateName) {
       return cachedValue;
     }
@@ -101,23 +126,6 @@ const EditApp = ({ appName, tabType }: { appName?: string; tabType: string }) =>
     defaultValues: getFormDefaultValues(templateSource),
     values: getCachedValue()
   });
-
-  const formOnchangeDebounce = debounce(async (data: any) => {
-    try {
-      if (!templateSource) return;
-      const yamlString = templateSource.yamlList?.map((item) => JSYAML.dump(item)).join('---\n');
-      const output = mapValues(templateSource?.source.defaults, (value) => value.value);
-      const generateStr = parseTemplateString(yamlString, /\$\{\{\s*(.*?)\s*\}\}/g, {
-        ...templateSource?.source,
-        inputs: data,
-        defaults: output
-      });
-      setCorrectYaml(generateStr);
-      setYamlList(generateYamlList(generateStr));
-    } catch (error) {
-      console.log(error);
-    }
-  }, 200);
 
   // watch form change, compute new yaml
   formHook.watch((data: any) => {
@@ -138,9 +146,10 @@ const EditApp = ({ appName, tabType }: { appName?: string; tabType: string }) =>
       }
 
       const detailName = templateSource?.source?.defaults?.app_name?.value;
+
       const yamls = JSYAML.loadAll(correctYaml).map((item: any) => {
-        item.metadata.labels['cloud.sealos.io/deploy-on-sealos'] = detailName;
-        return JSYAML.dump(item);
+        let _item = processEnvValue(item, detailName!);
+        return JSYAML.dump(_item);
       });
 
       const result = await postDeployApp(yamls);
@@ -214,13 +223,21 @@ const EditApp = ({ appName, tabType }: { appName?: string; tabType: string }) =>
         inputs: getFormDefaultValues(res)
       });
       setCorrectYaml(generateStr);
-      setYamlList(generateYamlList(generateStr));
+      setYamlList(generateYamlList(generateStr, detailName));
     } catch (err) {
       console.log(err, 'getTemplateData');
     }
   };
 
   useEffect(() => {
+    const cached = getCachedValue();
+    if (cached) {
+      formOnchangeDebounce(cached);
+    }
+  }, [templateSource]);
+
+  useEffect(() => {
+    // get template data
     (async () => {
       try {
         await getTemplateData();
@@ -281,7 +298,7 @@ const EditApp = ({ appName, tabType }: { appName?: string; tabType: string }) =>
           />
           <Flex w={{ md: '1000px', base: '800px' }} m={'32px auto'} flexDirection="column">
             <Form formHook={formHook} pxVal={pxVal} formSource={templateSource?.source} />
-            <Yaml yamlList={yamlList} pxVal={pxVal}></Yaml>
+            {/* <Yaml yamlList={yamlList} pxVal={pxVal}></Yaml> */}
             <ReadMe templateDetail={templateDetail} />
           </Flex>
         </Flex>

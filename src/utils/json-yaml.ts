@@ -1,16 +1,20 @@
 import { YamlItemType } from '@/types';
 import { TemplateType } from '@/types/app';
 import { customAlphabet } from 'nanoid';
-const nanoid = customAlphabet('abcdefghijklmnopqrstuvwxyz');
 import { cloneDeep } from 'lodash';
-export const replaceYamlVariate = (str: string) => str.replace(/{{(.*?)}}/g, '__TEMP__$1__TEMP__');
+const nanoid = customAlphabet('abcdefghijklmnopqrstuvwxyz');
+import JSYAML from 'js-yaml';
+import { processEnvValue } from './tools';
 
-export const generateYamlList = (value: string): YamlItemType[] => {
+export const generateYamlList = (value: string, labelName: string): YamlItemType[] => {
   try {
+    let _value = JSYAML.loadAll(value).map((item: any) =>
+      JSYAML.dump(processEnvValue(item, labelName))
+    );
     return [
       {
         filename: 'Deploy',
-        value: value
+        value: _value.join('\n---\n')
       }
     ];
   } catch (error) {
@@ -39,8 +43,6 @@ export const parseTemplateString = (
     return '';
   }
 };
-
-export const handerDefaultValues = () => {};
 
 export const getTemplateDataSource = (template: TemplateType) => {
   try {

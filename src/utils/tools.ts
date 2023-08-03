@@ -1,6 +1,7 @@
 import { useToast } from '@/hooks/useToast';
 import dayjs from 'dayjs';
 import { useTranslation } from 'next-i18next';
+import { cloneDeep, forEach, isNumber } from 'lodash';
 
 /**
  * copy text data
@@ -199,4 +200,20 @@ export const parseGithubUrl = (url: string) => {
     repository: pathParts[2],
     branch: pathParts[3]
   };
+};
+
+export const processEnvValue = (obj: any, labelName: string) => {
+  const newDeployment = cloneDeep(obj);
+
+  forEach(newDeployment?.spec?.template?.spec?.containers, (container) => {
+    forEach(container?.env, (env) => {
+      if (isNumber(env?.value)) {
+        env.value = env.value.toString();
+      }
+    });
+  });
+
+  newDeployment.metadata.labels['cloud.sealos.io/deploy-on-sealos'] = labelName;
+
+  return newDeployment;
 };
