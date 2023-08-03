@@ -10,7 +10,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         SEALOS_CERT_SECRET_NAME: process.env.SEALOS_CERT_SECRET_NAME || 'wildcard-cert',
         TEMPLATE_REPO_PATH: process.env.TEMPLATE_REPO_PATH || 'template',
         TEMPLATE_REPO_URL:
-          process.env.TEMPLATE_REPO_URL || 'https://github.com/labring-actions/templates'
+          process.env.TEMPLATE_REPO_URL || 'https://github.com/labring-actions/templates',
+        DEVELOPMENT_MODE: process.env.DEVELOPMENT_MODE || 'false'
       }
     });
   } catch (err: any) {

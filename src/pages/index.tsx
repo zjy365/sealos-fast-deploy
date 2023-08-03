@@ -24,6 +24,11 @@ function Index() {
   const [searchValue, setSearchValue] = useState('');
   const [searchResults, setSearchResults] = useState([]);
 
+  const { data: PlatformEnvs } = useQuery(['getPlatForm'], () => GET('/api/platform/getEnv'), {
+    refetchInterval: 5 * 60 * 1000,
+    staleTime: 5 * 60 * 1000
+  });
+
   const { data: FastDeployTemplates } = useQuery(['listTemplte'], () => GET('/api/listTemplate'), {
     refetchInterval: 5 * 60 * 1000,
     staleTime: 5 * 60 * 1000
@@ -38,6 +43,8 @@ function Index() {
     setSearchValue(e.target.value);
     searchTemplate(e.target.value);
   };
+
+  console.log(PlatformEnvs);
 
   const searchTemplate = (value: string) => {
     const filterData = FastDeployTemplates?.filter((item: TemplateType) => {
@@ -87,6 +94,12 @@ function Index() {
         <Text color={'5A646E'} fontSize={'12px'} fontWeight={500}>
           {t('One Click Deployment')}
         </Text>
+        {PlatformEnvs?.DEVELOPMENT_MODE && (
+          <Text cursor={'pointer'} fontSize={'12px'} onClick={() => router.push('/develop')}>
+            前往开发模式
+          </Text>
+        )}
+
         <InputGroup mt={'24px'} maxWidth={'674px'}>
           <InputLeftElement pointerEvents="none" pt={'6px'}>
             <svg
