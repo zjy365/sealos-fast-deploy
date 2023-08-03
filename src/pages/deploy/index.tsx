@@ -94,10 +94,7 @@ const EditApp = ({ appName, tabType }: { appName?: string; tabType: string }) =>
 
   const formOnchangeDebounce = (data: any) => {
     try {
-      console.log(data, templateSource, '--');
-
       if (!templateSource) return;
-      console.log(data, templateSource);
       const yamlString = templateSource.yamlList?.map((item) => JSYAML.dump(item)).join('---\n');
       const output = mapValues(templateSource?.source.defaults, (value) => value.value);
 
