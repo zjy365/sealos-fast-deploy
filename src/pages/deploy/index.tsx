@@ -92,9 +92,10 @@ const EditApp = ({ appName, tabType }: { appName?: string; tabType: string }) =>
     );
   };
 
-  const formOnchangeDebounce = (data: any) => {
+  const formOnchangeDebounce = debounce((data: any) => {
     try {
       if (!templateSource) return;
+
       const yamlString = templateSource.yamlList?.map((item) => JSYAML.dump(item)).join('---\n');
       const output = mapValues(templateSource?.source.defaults, (value) => value.value);
 
@@ -108,14 +109,12 @@ const EditApp = ({ appName, tabType }: { appName?: string; tabType: string }) =>
     } catch (error) {
       console.log(error);
     }
-  };
+  }, 200);
 
   const getCachedValue = () => {
     if (!cached) return {};
     const cachedValue = JSON.parse(cached);
-    if (cachedValue?.cachedKey === templateName) {
-      return cachedValue;
-    }
+    return cachedValue?.cachedKey === templateName ? cachedValue : {};
   };
 
   // form
@@ -228,9 +227,7 @@ const EditApp = ({ appName, tabType }: { appName?: string; tabType: string }) =>
 
   useEffect(() => {
     const cached = getCachedValue();
-    if (cached) {
-      formOnchangeDebounce(cached);
-    }
+    formOnchangeDebounce(cached);
   }, [templateSource]);
 
   useEffect(() => {
