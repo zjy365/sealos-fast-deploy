@@ -144,5 +144,6 @@
   "Configure Project": "Configure Project",
   "Not need to configure any parameters": "The current application does not need to configure any parameters",
   "Do you want to jump to the app details page": "Do you want to jump to the app details page",
-  "Deploy on sealos": "Deploy on sealos"
+  "Deploy on sealos": "Deploy on sealos",
+  "Heading to sealos soon": "Heading to sealos soon"
 }

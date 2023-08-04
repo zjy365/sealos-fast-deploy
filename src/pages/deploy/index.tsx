@@ -60,7 +60,7 @@ const EditApp = ({ appName, tabType }: { appName?: string; tabType: string }) =>
   );
 
   const { openConfirm, ConfirmChild } = useConfirm({
-    content: applyMessage
+    content: insideCloud ? 'Confirm Deploy Application?' : 'Heading to sealos soon'
   });
 
   const { openConfirm: openConfirm2, ConfirmChild: ConfirmChild2 } = useConfirm({
