@@ -25,11 +25,11 @@ import { useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { sealosApp } from 'sealos-desktop-sdk/app';
 import Form from './components/Form';
-import Header from './components/Header';
 import ReadMe from './components/ReadMe';
 import Yaml from './components/Yaml';
 
 const ErrorModal = dynamic(() => import('./components/ErrorModal'));
+const Header = dynamic(() => import('./components/Header'), { ssr: false });
 
 const EditApp = ({ appName, tabType }: { appName?: string; tabType: string }) => {
   const { t, i18n } = useTranslation();
@@ -44,16 +44,12 @@ const EditApp = ({ appName, tabType }: { appName?: string; tabType: string }) =>
   const [correctYaml, setCorrectYaml] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const { screenWidth } = useGlobalStore();
-  const { setCached, cached, deleteCached } = useCachedStore();
+  const { setCached, cached, insideCloud, deleteCached, setinsideCloud } = useCachedStore();
 
   const detailName = useMemo(
     () => templateSource?.source?.defaults?.app_name?.value || '',
     [templateSource]
   );
-
-  const isUserLogin = useMemo(() => {
-    return !!getUserKubeConfig();
-  }, []);
 
   const { data: FastDeployTemplates } = useQuery(['cloneTemplte'], () => GET('/api/listTemplate'));
 
@@ -132,7 +128,7 @@ const EditApp = ({ appName, tabType }: { appName?: string; tabType: string }) =>
   const submitSuccess = async () => {
     setIsLoading(true);
     try {
-      if (!isUserLogin) {
+      if (!insideCloud) {
         setIsLoading(false);
         setCached(JSON.stringify({ ...formHook.getValues(), cachedKey: templateName }));
         const _name = encodeURIComponent(`?templateName=${templateName}&sealos_inside=true`);
@@ -231,6 +227,7 @@ const EditApp = ({ appName, tabType }: { appName?: string; tabType: string }) =>
   }, [templateSource]);
 
   useEffect(() => {
+    setinsideCloud(!(window.top === window));
     // get template data
     (async () => {
       try {
@@ -287,7 +284,7 @@ const EditApp = ({ appName, tabType }: { appName?: string; tabType: string }) =>
             appName={''}
             title={title}
             yamlList={yamlList}
-            applyBtnText={applyBtnText}
+            applyBtnText={insideCloud ? applyBtnText : 'Deploy on sealos'}
             applyCb={() => formHook.handleSubmit(openConfirm(submitSuccess), submitError)()}
           />
           <Flex w={{ md: '1000px', base: '800px' }} m={'32px auto'} flexDirection="column">

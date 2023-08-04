@@ -149,5 +149,6 @@
   "Template Name": "模板名称",
   "Template List": " 模板列表",
   "Not need to configure any parameters": "当前应用不需要配置任何参数",
-  "Do you want to jump to the app details page": "您要跳转到应用详情页吗"
+  "Do you want to jump to the app details page": "您要跳转到应用详情页吗",
+  "Deploy on sealos": "去sealos部署"
 }

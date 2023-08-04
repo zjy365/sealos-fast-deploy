@@ -3,9 +3,11 @@ import { devtools, persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
 type State = {
+  insideCloud: boolean;
   cached: string;
   setCached: (e: string) => void;
   deleteCached: () => void;
+  setinsideCloud: (e: boolean) => void;
 };
 
 export const useCachedStore = create<State>()(
@@ -13,6 +15,7 @@ export const useCachedStore = create<State>()(
     persist(
       immer((set, get) => ({
         cached: '',
+        insideCloud: true,
         setCached(e: string) {
           set((state) => {
             state.cached = e;
@@ -21,6 +24,11 @@ export const useCachedStore = create<State>()(
         deleteCached() {
           set((state) => {
             state.cached = '';
+          });
+        },
+        setinsideCloud(e: boolean) {
+          set((state) => {
+            state.insideCloud = e;
           });
         }
       })),

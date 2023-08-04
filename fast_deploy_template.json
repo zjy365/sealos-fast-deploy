@@ -490,6 +490,41 @@
     "apiVersion": "template.app.sealos.io/v1beta1",
     "kind": "Template",
     "metadata": {
+      "name": "nsfw"
+    },
+    "spec": {
+      "title": "nsfw",
+      "url": "https://github.com/labring/nsfw",
+      "github": "https://github.com/labring/nsfw",
+      "author": "sealos",
+      "description": "NSFW is a project for image pornography recognition",
+      "readme": "https://raw.githubusercontent.com/labring/nsfw/master/README.md",
+      "icon": "https://avatars.githubusercontent.com/u/102226726?s=96&v=4",
+      "template_type": "inline",
+      "defaults": {
+        "app_host": {
+          "type": "string",
+          "value": "${{ random(8) }}"
+        },
+        "app_name": {
+          "type": "string",
+          "value": "nsfw-${{ random(8) }}"
+        }
+      },
+      "inputs": {
+        "API_SECRET_KEY": {
+          "description": "API_SECRET_KEY",
+          "type": "string",
+          "default": "",
+          "required": false
+        }
+      }
+    }
+  },
+  {
+    "apiVersion": "template.app.sealos.io/v1beta1",
+    "kind": "Template",
+    "metadata": {
       "name": "one-api"
     },
     "spec": {

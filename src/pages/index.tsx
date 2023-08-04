@@ -1,6 +1,7 @@
 import { updateRepo } from '@/api/platform';
 import MyIcon from '@/components/Icon';
 import { GET } from '@/services/request';
+import { useCachedStore } from '@/store/cached';
 import { TemplateType } from '@/types/app';
 import { serviceSideProps } from '@/utils/i18n';
 import {
@@ -23,6 +24,9 @@ function Index() {
   const router = useRouter();
   const [searchValue, setSearchValue] = useState('');
   const [searchResults, setSearchResults] = useState([]);
+  const { setinsideCloud } = useCachedStore();
+
+  const { data: PlatformEnvs } = useQuery(['getPlatForm'], () => GET('/api/platform/getEnv'));
 
   const { data: FastDeployTemplates } = useQuery(['listTemplte'], () => GET('/api/listTemplate'), {
     refetchInterval: 5 * 60 * 1000,
@@ -67,6 +71,7 @@ function Index() {
   };
 
   useEffect(() => {
+    setinsideCloud(!(window.top === window));
     if (router?.query?.templateName) {
       const name = router?.query?.templateName;
       router.push({
@@ -76,7 +81,7 @@ function Index() {
         }
       });
     }
-  }, [router]);
+  }, [router, setinsideCloud]);
 
   return (
     <Box flexDirection={'column'} height={'100%'} overflow={'auto'} backgroundColor={'#edeff0'}>
@@ -87,6 +92,13 @@ function Index() {
         <Text color={'5A646E'} fontSize={'12px'} fontWeight={500}>
           {t('One Click Deployment')}
         </Text>
+
+        {/* {PlatformEnvs?.DEVELOPMENT_MODE && (
+          <Text cursor={'pointer'} fontSize={'12px'} onClick={() => router.push('/develop')}>
+            前往开发模式
+          </Text>
+        )} */}
+
         <InputGroup mt={'24px'} maxWidth={'674px'}>
           <InputLeftElement pointerEvents="none" pt={'6px'}>
             <svg
