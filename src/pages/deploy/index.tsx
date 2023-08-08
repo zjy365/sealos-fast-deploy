@@ -44,7 +44,7 @@ const EditApp = ({ appName, tabType }: { appName?: string; tabType: string }) =>
   const [correctYaml, setCorrectYaml] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const { screenWidth } = useGlobalStore();
-  const { setCached, cached, insideCloud, deleteCached, setinsideCloud } = useCachedStore();
+  const { setCached, cached, insideCloud, deleteCached, setInsideCloud } = useCachedStore();
 
   const detailName = useMemo(
     () => templateSource?.source?.defaults?.app_name?.value || '',
@@ -227,7 +227,7 @@ const EditApp = ({ appName, tabType }: { appName?: string; tabType: string }) =>
   }, [templateSource]);
 
   useEffect(() => {
-    setinsideCloud(!(window.top === window));
+    setInsideCloud(!(window.top === window));
     // get template data
     (async () => {
       try {

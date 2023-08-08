@@ -24,7 +24,7 @@ function Index() {
   const router = useRouter();
   const [searchValue, setSearchValue] = useState('');
   const [searchResults, setSearchResults] = useState([]);
-  const { setinsideCloud } = useCachedStore();
+  const { setInsideCloud } = useCachedStore();
 
   const { data: PlatformEnvs } = useQuery(['getPlatForm'], () => GET('/api/platform/getEnv'));
 
@@ -71,7 +71,7 @@ function Index() {
   };
 
   useEffect(() => {
-    setinsideCloud(!(window.top === window));
+    setInsideCloud(!(window.top === window));
     if (router?.query?.templateName) {
       const name = router?.query?.templateName;
       router.push({
@@ -81,7 +81,7 @@ function Index() {
         }
       });
     }
-  }, [router, setinsideCloud]);
+  }, [router, setInsideCloud]);
 
   return (
     <Box flexDirection={'column'} height={'100%'} overflow={'auto'} backgroundColor={'#edeff0'}>

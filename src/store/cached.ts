@@ -7,7 +7,7 @@ type State = {
   cached: string;
   setCached: (e: string) => void;
   deleteCached: () => void;
-  setinsideCloud: (e: boolean) => void;
+  setInsideCloud: (e: boolean) => void;
 };
 
 export const useCachedStore = create<State>()(
@@ -26,7 +26,7 @@ export const useCachedStore = create<State>()(
             state.cached = '';
           });
         },
-        setinsideCloud(e: boolean) {
+        setInsideCloud(e: boolean) {
           set((state) => {
             state.insideCloud = e;
           });
